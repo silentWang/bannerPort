@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "headItem":"../components/headItem/headItem",
+    "homeItem":"../components/homeItem/homeItem"
+  }
+}

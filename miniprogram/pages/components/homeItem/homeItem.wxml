@@ -1,0 +1,13 @@
+<!--pages/components/homeItem/homeItem.wxml-->
+<view class="h_top_cls" data-id="{{tempData.id}}">
+    <image class="bg_cls" src="{{imgUrl}}"/>
+    <view>
+      <block wx:if="{{nickName != ''}}">
+        <text class="name_cls">{{nickName}}</text>
+      </block>
+      <block wx:if="{{ageValue != ''}}">
+        <text class="age_cls">{{ageValue}}</text>
+      </block>
+      <image class="icon_cls" src="{{headUrl}}" />
+    </view>
+</view>
