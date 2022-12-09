@@ -1,12 +1,15 @@
 import { getImageStyle, getTextStyle } from "../../../utils/util";
 
-// pages/components/homeItem/homeItem.ts
+// pages/components/boardShow/boardShow.ts
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    tempData:Object
+    tempData:{
+      type:Object,
+      value:{blank:true}
+    }
   },
 
   /**
@@ -15,7 +18,8 @@ Component({
   data: {
     nameStyle:'',
     ageStyle:'',
-    headStyle:''
+    headStyle:'',
+    showDIY:false
   },
 
   ready() {
@@ -28,10 +32,24 @@ Component({
       headStyle:headstyle
     });
   },
+
   /**
    * 组件的方法列表
    */
   methods: {
-    
+    startDIY(){
+      wx.showModal({
+        content:'请确定是否消耗1次DIY次数？保存后不可修改',
+        success:(res)=>{
+          if(res.confirm){
+            this.setData({showDIY:true})
+          }
+        }
+      })
+    },
+    close(){
+      // if(this.data.showDIY) return;
+      this.triggerEvent('hideBoardEvent')
+    }
   }
 })

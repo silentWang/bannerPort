@@ -1,3 +1,5 @@
+import { dataCenter } from "../../model/DataCenter"
+
 // pages/mine/mine.ts
 Page({
 
@@ -5,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    childList:{}
   },
 
   /**
@@ -19,7 +21,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    this.setData({
+      childList:dataCenter.getChildList()
+    })
   },
 
   /**

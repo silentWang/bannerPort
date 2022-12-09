@@ -1,2 +1,22 @@
 <!--pages/boards/boards.wxml-->
-<text>pages/boards/boards.wxml</text>
+<view class="container">
+  <headItem></headItem>
+  <scroll-view class="list_cls" scroll-y="true">
+    <block wx:if="{{isSeries}}">
+      <block wx:for="{{seriesList}}" wx:key="index">
+        <boardItemS seriesInfo="{{item}}" data-sid="{{item}}" bindtap="showChildList" class="boardItem_cls"></boardItemS>
+      </block>
+    </block>
+    <block wx:else>
+      <block wx:for="{{childList}}" wx:key="index">
+        <boardItemM wx:if="{{index%2 == 0}}" 
+          boardInfo1="{{childList[index]}}" 
+          boardInfo2="{{childList[index + 1]}}"
+          bind:showBoardEvent="showBoardHandler"></boardItemM>
+      </block>
+    </block>
+  </scroll-view>
+  <block wx:if="{{showDetail}}">
+    <boardShow tempData="{{boardData}}" bind:hideBoardEvent="hideBoard"></boardShow>
+  </block>
+</view>

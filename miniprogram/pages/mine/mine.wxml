@@ -1,2 +1,14 @@
-<!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="container">
+    <headItem></headItem>
+    <view class="ms_title_cls">我的作品</view>
+    <scroll-view class="list_cls" scroll-y="true">
+        <block wx:for="{{childList}}" wx:key="index">
+            <boardItemM wx:if="{{index%2 == 0}}" 
+                boardInfo1="{{childList[index]}}" 
+                boardInfo2="{{childList[index + 1]}}"
+                showSaveBtn="true"
+                bind:showBoardEvent="showBoardHandler"></boardItemM>
+        </block>
+    </scroll-view>
+    <text class="ms_tip_cls">图片保存实效为3天，3天后不显示</text>
+</view>

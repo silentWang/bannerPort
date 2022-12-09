@@ -1,0 +1,37 @@
+/* pages/components/boardItem/boardItemM.wxss */
+.bm_small_cls {
+    width: 680rpx;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10rpx 0 10rpx 0;
+}
+.bm_item_cls {
+    width: 324rpx;
+    height: 183rpx;
+    position: relative;
+    overflow: hidden;
+}
+.bm_bg_cls {
+    width: 100%;
+    height: 183rpx;
+}
+.bm_btn {
+    height: 50rpx;
+    background-color: #3FC154;
+    border-radius: 10rpx;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    padding-top: 20rpx;
+    margin-top: 10rpx;
+}
+.text_cls {
+    position: absolute;
+    display: block;
+}
+.icon_cls {
+    position: absolute;
+    display: block;
+}

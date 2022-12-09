@@ -1,4 +1,4 @@
-import { dataCenter } from "./model/DataCenter"
+import { dataCenter } from "./model/DataCenter";
 
 // app.ts
 App<IAppOption>({
@@ -8,12 +8,12 @@ App<IAppOption>({
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    dataCenter.isLogin = false;
     // 登录
     wx.login({
       success: res => {
-        console.log('ffffffff',res.code)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        dataCenter.userInfo = {};
+        dataCenter.userInfo = {res};
       },
     })
   },

@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "headItem":"../components/headItem/headItem",
+    "boardItemS":"../components/boardItem/boardItemS",
+    "boardItemM":"../components/boardItem/boardItemM",
+    "boardShow":"../components/boardShow/boardShow"
+  }
 }

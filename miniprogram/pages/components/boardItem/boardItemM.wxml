@@ -1,0 +1,41 @@
+<!--pages/components/boardItem/boardItemM.wxml-->
+<view class="bm_small_cls">
+    <view bindtap="clkToShow1">
+        <view class="bm_item_cls">
+            <image class="bm_bg_cls" src="{{boardInfo1.bgicon}}"/>
+            <view>
+                <block wx:if="{{boardInfo1.name}}">
+                    <text class="text_cls" style="{{nameStyle1}}">{{boardInfo1.name.value}}</text>
+                </block>
+                <block wx:if="{{boardInfo1.age}}">
+                    <text class="text_cls" style="{{ageStyle1}}">{{boardInfo1.age.value}}</text>
+                </block>
+                <block wx:if="{{boardInfo1.headicon}}">
+                    <image class="icon_cls" style="{{headStyle1}}" src="{{boardInfo1.headicon.value}}" />
+                </block>
+            </view>
+        </view>
+        <block wx:if="{{showSaveBtn}}">
+            <view class="bm_btn" bindtap="clkToSave1">保存到手机</view>
+        </block>
+    </view>
+    <view wx:if="{{boardInfo2 && boardInfo2.name}}" bindtap="clkToShow2">
+        <view class="bm_item_cls">
+            <image class="bm_bg_cls" src="{{boardInfo2.bgicon}}"/>
+            <view>
+                <block wx:if="{{boardInfo2.name}}">
+                    <text class="text_cls" style="{{nameStyle2}}">{{boardInfo2.name.value}}</text>
+                </block>
+                <block wx:if="{{boardInfo2.age}}">
+                    <text class="text_cls" style="{{ageStyle2}}">{{boardInfo2.age.value}}</text>
+                </block>
+                <block wx:if="{{boardInfo2.headicon}}">
+                    <image class="icon_cls" style="{{headStyle2}}" src="{{boardInfo2.headicon.value}}" />
+                </block>
+            </view>
+        </view>
+        <block wx:if="{{showSaveBtn}}">
+            <view class="bm_btn" bindtap="clkToSave2">保存到手机</view>
+        </block>
+    </view>
+</view>

@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-  <headItem userInfo="{{app.globalData}}"></headItem>
-  <scroll-view class="list_cls" scroll-y="{{true}}">
+  <headItem></headItem>
+  <scroll-view class="list_cls" scroll-y="true">
     <block wx:for="{{homeList}}" wx:key="index">
       <homeItem tempData="{{item}}" class="homeItem_cls"></homeItem>
     </block>

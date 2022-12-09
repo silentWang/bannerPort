@@ -1,1 +1,12 @@
 /* pages/boards/boards.wxss */
+.list_cls {
+    width: 100%;
+    height: 1110rpx;
+    position: relative;
+    white-space: nowrap;
+}
+.boardItem_cls {
+    display: block;
+    position: relative;
+    margin: 20rpx 0 0 0;
+}

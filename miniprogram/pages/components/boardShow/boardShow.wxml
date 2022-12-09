@@ -1,0 +1,28 @@
+<view class="top_show_cls" bindtap="close">
+  <view class="bs_top_cls">
+    <view class="bs_content_cls">
+      <image class="bs_bg_cls" src="{{tempData.bgicon}}"/>
+      <view>
+        <block wx:if="{{tempData.name}}">
+          <text class="text_cls" style="{{nameStyle}}">{{tempData.name.value}}</text>
+        </block>
+        <block wx:if="{{tempData.age}}">
+          <text class="text_cls" style="{{ageStyle}}">{{tempData.age.value}}</text>
+        </block>
+        <block wx:if="{{tempData.headicon}}">
+          <image class="icon_cls" style="{{headStyle}}" src="{{tempData.headicon.value}}" />
+        </block>
+      </view>
+    </view>
+    <block wx:if="{{!showDIY}}">
+      <view class="bs_diybutton_cls">
+        <button type="primary" catchtap="startDIY">开始DIY</button>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="bs_diybutton_cls">
+        <button type="primary" catchtap="close">预览</button>
+      </view>
+    </block>
+  </view>
+</view>

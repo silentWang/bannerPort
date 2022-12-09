@@ -1,0 +1,7 @@
+<!--pages/components/boardItem/boardItem.wxml-->
+<view class="b_top_cls">
+    <view bindtap="showCurrentSeries" class="b_big_cls">
+        <image src="{{seriesInfo.image}}" class="b_bg_cls"/>
+        <text class="b_name_cls">{{seriesInfo.name}}</text>
+    </view>
+</view>

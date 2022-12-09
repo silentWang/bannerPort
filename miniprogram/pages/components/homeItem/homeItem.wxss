@@ -4,34 +4,18 @@
   height: 365rpx;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 }
 .bg_cls {
   width: 100%;
   height: 100%;
   display: block;
 }
-.name_cls {
+.text_cls {
   position: absolute;
   display: block;
-  color: rgb(4, 136, 251);
-  font-size: 60rpx;
-  font-weight: bold;
-  left: 100rpx;
-  top: 60rpx;
-}
-.age_cls {
-  position: absolute;
-  display: block;
-  color: rgb(204, 2, 250);
-  font-size: 48rpx;
-  font-weight: bold;
-  left: 100rpx;
-  top: 140rpx;
 }
 .icon_cls {
   position: absolute;
-  width: 160rpx;
-  height: 160rpx;
-  left: 360rpx;
-  top: 160rpx;
+  display: block;
 }

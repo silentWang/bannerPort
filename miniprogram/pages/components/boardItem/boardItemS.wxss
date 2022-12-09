@@ -1,0 +1,24 @@
+/* pages/components/boardItem/boardItem.wxss */
+.b_top_cls {
+    width: 648rpx;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+.b_big_cls {
+    width: 100%;
+    height: 365rpx;
+}
+.b_bg_cls {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.b_name_cls {
+    font-size: 48rpx;
+    font-weight: bold;
+    color:antiquewhite;
+    display: block;
+    position: relative;
+    top: -200rpx;
+}
