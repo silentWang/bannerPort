@@ -18,9 +18,7 @@ const formatNumber = (n: number) => {
   return s[1] ? s : '0' + s
 }
 
-export function getTextStyle(data:any,key:string,scale:number = 1){
-  if(!data || !key) return '';
-  let obj = data[key];
+export function getTextStyle(obj:any,scale:number = 1){
   if(!obj) return '';
   let sty = `color:${obj.color};`;
   sty += `left:${obj.x*scale}rpx;`;
@@ -31,9 +29,7 @@ export function getTextStyle(data:any,key:string,scale:number = 1){
   return sty;
 }
 
-export function getImageStyle(data:any,key:string,scale:number = 1){
-  if(!data || !key) return '';
-  let obj = data[key];
+export function getImageStyle(obj:any, scale:number = 1){
   if(!obj) return '';
   let sty = `left:${obj.x*scale}rpx;`;
   sty += `top:${obj.y*scale}rpx;`;
@@ -41,4 +37,20 @@ export function getImageStyle(data:any,key:string,scale:number = 1){
   sty += `height:${obj.height*scale}rpx;`;
   sty += `transform:rotate(${obj.rotation}deg);`;
   return sty;
+}
+
+export function downloadImage(url:string){
+  if(!url) return;
+  wx.downloadFile({
+    url: url,//图片的地址
+    success:function(res){
+      const tempFilePath = res.tempFilePath  //通过res中的tempFilePath 得到需要下载的图片地址
+      wx.saveImageToPhotosAlbum({
+        filePath: tempFilePath,  //设置下载图片的地址
+        success:function(){
+          console.log('图片保存成功')
+        }
+      })
+    }
+  })
 }

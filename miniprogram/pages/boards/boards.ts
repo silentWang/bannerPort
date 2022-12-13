@@ -29,7 +29,7 @@ Page({
         isSeries:true,
         seriesList:dataCenter.seriesList
       });
-    })
+    },1)
   },
 
   /**
@@ -67,20 +67,18 @@ Page({
     
   },
   showChildList(data:any){
-    console.log('dddd',data)
-    let list = dataCenter.getChildList();
-    console.log('eeeee',list)
-    this.setData({
-      isSeries:false,
-      childList:list
-    });
+    let info = data.currentTarget.dataset.seriesitem;
+    let params = {page:1,category_id:info.id,code:''}
+    dataCenter.getChildList((res:any)=>{
+      this.setData({isSeries:false,childList:res.data});
+    },params);
   },
   showBoardHandler(data:any){
     let info = data.detail;
     this.setData({
-      boardData:info
+      boardData:info,
+      showDetail:true
     })
-    this.setData({showDetail:true})
   },
 
   hideBoard(){

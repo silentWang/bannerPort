@@ -4,7 +4,7 @@
   <scroll-view class="list_cls" scroll-y="true">
     <block wx:if="{{isSeries}}">
       <block wx:for="{{seriesList}}" wx:key="index">
-        <boardItemS seriesInfo="{{item}}" data-sid="{{item}}" bindtap="showChildList" class="boardItem_cls"></boardItemS>
+        <boardItemS seriesInfo="{{item}}" data-seriesItem="{{item}}" bindtap="showChildList" class="boardItem_cls"></boardItemS>
       </block>
     </block>
     <block wx:else>

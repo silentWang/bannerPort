@@ -1,3 +1,4 @@
+/* pages/boarddiy/boardDIY.wxss */
 .top_show_cls {
     display: block;
     width: 100%;
@@ -14,8 +15,8 @@
     top: 20%;
 }
 .bs_content_cls {
-    width: 648rpx;
-    height: 365rpx;
+    width: 750rpx;
+    height: 422rpx;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -25,7 +26,15 @@
     height: 100%;
     display: block;
 }
+.text_cls {
+    position: absolute;
+    display: block;
+}
+.icon_cls {
+    position: absolute;
+    display: block;
+}
 .bs_diybutton_cls {
     position: relative;
-    top: 50rpx;
+    top: 300rpx;
 }

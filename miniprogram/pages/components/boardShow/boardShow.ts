@@ -1,5 +1,3 @@
-import { getImageStyle, getTextStyle } from "../../../utils/util";
-
 // pages/components/boardShow/boardShow.ts
 Component({
   /**
@@ -8,7 +6,8 @@ Component({
   properties: {
     tempData:{
       type:Object,
-      value:{blank:true}
+      value:{blank:true},
+      id:0
     }
   },
 
@@ -16,21 +15,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    nameStyle:'',
-    ageStyle:'',
-    headStyle:'',
-    showDIY:false
-  },
-
-  ready() {
-    let namestyle = getTextStyle(this.data.tempData,'name');
-    let agestyle = getTextStyle(this.data.tempData,'age');
-    let headstyle = getImageStyle(this.data.tempData,'headicon');
-    this.setData({
-      nameStyle:namestyle,
-      ageStyle:agestyle,
-      headStyle:headstyle
-    });
   },
 
   /**
@@ -42,7 +26,12 @@ Component({
         content:'请确定是否消耗1次DIY次数？保存后不可修改',
         success:(res)=>{
           if(res.confirm){
-            this.setData({showDIY:true})
+            wx.navigateTo({
+              url:'../../pages/boarddiy/boardDIY?id=' + this.data.tempData.id,
+              complete:function(result){
+                console.log(result)
+              }
+            })
           }
         }
       })

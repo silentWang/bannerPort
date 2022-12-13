@@ -10,8 +10,11 @@ class DataCenter {
     }
 
     public isLogin:boolean = false;
+    /**当前页面 */
+    private _curPage:any = {};
     private _canIUseGetUserProfile:boolean = true;
-    private _userInfo:any;
+    private _userInfo:any = {};
+    private _access_token:string = '';
 
     private testBoardList:any[] = [];
 
@@ -20,98 +23,18 @@ class DataCenter {
 
     constructor(){
         this.testBoardList = [
-            {
-                name:{
-                    value:'冯梦龙',
-                    x:0,
-                    y:0,
-                    size:46,
-                    rotation:20,
-                    color:'#ffffff',
-                    bold:true,
-                },
-                age:{
-                    value:26,
-                    size:32,
-                    x:200,
-                    y:0,
-                    rotation:80,
-                    color:'#ff0000',
-                    bold:true,
-                },
-                bgicon:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03',
-                headicon:{
-                    value:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202107%2F11%2F20210711160059_e01a0.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672539096&t=397345db46d4bc0e1447f94c89219946',
-                    x:250,
-                    y:180,
-                    rotation:120,
-                    width:200,
-                    height:200
-                }
-            },
-            {
-                name:{
-                    value:'李小龙',
-                    x:50,
-                    y:100,
-                    rotation:20,
-                    size:36,
-                    color:'#ff00ff',
-                    bold:true,
-                },
-                age:{
-                    value:26,
-                    size:28,
-                    x:250,
-                    y:100,
-                    rotation:80,
-                    color:'#ffff00',
-                    bold:true,
-                },
-                bgicon:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03',
-                headicon:{
-                    value:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202107%2F11%2F20210711160059_e01a0.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672539096&t=397345db46d4bc0e1447f94c89219946',
-                    x:250,
-                    y:180,
-                    rotation:60,
-                    width:200,
-                    height:200
-                }
-            },
-            {
-                name:{
-                    value:'冯梦龙',
-                    x:50,
-                    y:150,
-                    size:48,
-                    rotation:20,
-                    color:'#00ffff',
-                    bold:true,
-                },
-                age:{
-                    value:26,
-                    x:250,
-                    y:150,
-                    size:36,
-                    rotation:80,
-                    color:'#0000ff',
-                    bold:true,
-                },
-                bgicon:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03',
-                headicon:{
-                    value:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202107%2F11%2F20210711160059_e01a0.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672539096&t=397345db46d4bc0e1447f94c89219946',
-                    x:548,
-                    y:265,
-                    rotation:180,
-                    width:100,
-                    height:100
-                }
-            },
+            {id:1,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
+            {id:2,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
+            {id:3,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
         ]
     }
 
-    public set userInfo(info:any){
-        this._userInfo = info;
+    public get curPage(){
+        return this._curPage;
+    }
+
+    public get access_token(){
+        return this._access_token;
     }
 
     public get userInfo(){
@@ -128,64 +51,160 @@ class DataCenter {
     }
 
     public get homeBoardList(){
-        this._homeBoardList = this.testBoardList
         return this._homeBoardList;
     }
 
     public get seriesList(){
         return this._seriesList;
     }
-    // 登录
-    public getLoginInfo(callback:Function){
-        HttpUtil.get('/wechat/login').then((res:any)=>{
-            if(res.code != 0) return;
-            this.getUserInfo();
-            callback && callback();
-        });
+    // 授权登录
+    private authAction(){
+        wx.login({
+            success: res => {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId
+              HttpUtil.post('/wechat/login',{code:res.code}).then((rep:any)=>{
+                  wx.setStorageSync('token',rep.token + '');
+                  this._access_token = rep.token;
+                  this.getUserInfo();
+              });
+            },
+            complete:(res)=>{
+                console.log(res)
+            }
+        })
     }
     /**获取用户信息 */
     public getUserInfo(){
-        HttpUtil.get('/user/info').then((res:any)=>{
-            if(res.code != 0) return;
+        HttpUtil.post('/user/info','',false).then((res:any)=>{
+            if(res.code == 401){
+                this.authAction();
+                return;
+            }
+            dataCenter.isLogin = true;
             this._userInfo = res.data;
+        });
+    }
+
+    /**更新信息 */
+    public checkIsHaveInfo(){
+        if(this._userInfo && this._userInfo.is_auth == 1) return true;
+        wx.getUserProfile({
+            desc: '展示用户信息',
+            success: (res) => {
+                console.log('授权成功')
+                let params = {
+                    nickname:res.userInfo.nickName,
+                    avatarurl:res.userInfo.avatarUrl,
+                    gender:res.userInfo.gender
+                }
+                this._userInfo.nickname = params.nickname;
+                this._userInfo.avatarurl = params.avatarurl;
+                this._userInfo.gender = params.gender;
+                if(this._curPage){
+                    this._curPage.onReady();
+                }
+                this.updateUserInfo(params);
+            },
+            complete:(res)=>{
+                console.log('getUserProfile -- complete',res)
+            }
+        })
+        return false;
+    }
+
+    /**更新数据 */
+    private updateUserInfo(params:any){
+        HttpUtil.post('/user/update',params).then((res:any)=>{
+            console.log('用户信息更新成功！')
         });
     }
     /**兑换 */
     public getExchangeInfo(callback:Function){
-        HttpUtil.get('/user/exchange').then((res:any)=>{
-            if(res.code != 0) return;
+        HttpUtil.post('/user/exchange').then((res:any)=>{
             callback && callback(res.data);
+        });
+    }
+    
+    /**首页大图banner */
+    public getHomeListInfo(callback:Function,page:number = 1){
+        HttpUtil.post('/banner/list',{page}).then((res:any)=>{
+            this._homeBoardList = res.data;
+            callback && callback();
         });
     }
 
     public getDIYTimes(){
         
     }
-
-    public getSeriesList(callback:Function){
-        this._seriesList = [
-            {name:'系列一',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列二',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列三',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列四',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列五',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列六',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列七',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-            {name:'系列八',image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.youjidi.net%2Fuploadimg%2Fimage%2F20200103%2F20200103165653_79065.jpg&refer=http%3A%2F%2Fimg.youjidi.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673005035&t=b184771537821ba315a14e66efb9da8f'},
-        ]
-        callback && callback();
-        // Http.get('/category/list').then(res=>{
-        //     this._seriesList = []
-        //     callback && callback();
-        // });
+    /** 系列*/
+    public getSeriesList(callback:Function,page:number,code:string = ''){
+        HttpUtil.post('/category/list').then((res:any)=>{
+            this._seriesList = res.data;
+            callback && callback();
+        });
     }
-    
-    public getChildList(){
-        let list = [...this.testBoardList,...this.testBoardList,...this.testBoardList];
-        // Http.get('/template/list').then(res=>{
-        //     callback && callback();
-        // });
-        return list;
+    /** 系列子 */
+    public getChildList(callback:Function,params:{page:number,category_id:number,code?:string}){
+        HttpUtil.post('/template/list',params).then((res:any)=>{
+            callback && callback(res);
+        });
+    }
+    /**获取模板详细信息 */
+    public getBoardDetailInfo(callback:Function,temp_id:number|string){
+        let boardDetail = {
+            id:1,
+            code:'001',
+            font:'',
+            name:[
+                {
+                    value:'冯',
+                    x:0,
+                    y:0,
+                    size:46,
+                    rotation:20,
+                    color:'#ffffff',
+                    bold:true,
+                },
+                {
+                    value:'梦',
+                    x:0,
+                    y:0,
+                    size:46,
+                    rotation:20,
+                    color:'#ffffff',
+                    bold:true,
+                },
+            ],
+            age:[{
+                value:26,
+                size:32,
+                x:200,
+                y:0,
+                rotation:80,
+                color:'#ff0000',
+                bold:true,
+            }],
+            background:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03',
+            headpic:{
+                value:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202107%2F11%2F20210711160059_e01a0.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672539096&t=397345db46d4bc0e1447f94c89219946',
+                x:250,
+                y:180,
+                rotation:120,
+                width:200,
+                height:200
+            }
+        }
+        callback(boardDetail)
+        HttpUtil.get('template/info',{temp_id}).then((res:any)=>{
+            if(res.code == 0){
+                callback && callback(res.data)
+            }
+        });
+    }
+
+    public updateCurPage(){
+        let pages = getCurrentPages();
+        this._curPage = pages[pages.length - 1];
     }
     
 }

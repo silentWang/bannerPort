@@ -1,0 +1,22 @@
+<!--pages/boarddiy/boardDIY.wxml-->
+<view class="top_show_cls" bindtap="close">
+  <view class="bs_top_cls">
+    <view class="bs_content_cls">
+      <image class="bs_bg_cls" src="{{bgImage}}"/>
+      <view>
+        <block wx:for="{{nameStyles}}" wx:key="index">
+          <text class="text_cls" style="{{item.style}}">{{item.value}}</text>
+        </block>
+        <block wx:for="{{ageStyles}}">
+          <text class="text_cls" style="{{item.style}}">{{item.value}}</text>
+        </block>
+        <block wx:if="{{headStyle}}">
+          <image class="icon_cls" style="{{headStyle.style}}" src="{{headStyle.value}}" />
+        </block>
+      </view>
+    </view>
+    <view class="bs_diybutton_cls">
+        <button type="primary" catchtap="close">预览</button>
+    </view>
+  </view>
+</view>

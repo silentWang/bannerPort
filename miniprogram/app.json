@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/boards/boards",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/boarddiy/boardDIY"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,9 +13,9 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color":"#a9b7b7",
-    "selectedColor":"#11cd6e",
-    "borderStyle":"black",
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",

@@ -10,7 +10,10 @@ Page({
     homeList:{},
   },
   onReady() {
-    this.setData({homeList:dataCenter.homeBoardList});
+    dataCenter.updateCurPage();
+    dataCenter.getHomeListInfo(()=>{
+      this.setData({homeList:dataCenter.homeBoardList});
+    });
   },
   // 事件处理函数
   bindViewTap() {
