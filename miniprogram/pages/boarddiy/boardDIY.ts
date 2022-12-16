@@ -1,5 +1,4 @@
-import { dataCenter } from "../../model/DataCenter"
-import { getImageStyle, getTextStyle } from "../../utils/util";
+import DIYModel from "../../model/DIYModel";
 
 // pages/boarddiy/boardDIY.ts
 Page({
@@ -9,13 +8,20 @@ Page({
    */
   data: {
     boardID:'',
-    detailInfo:{},
-    nameStyles:[{}],
-    ageStyles:[{}],
+    nameStyles:[] as any[],
+    ageStyles:[] as any[],
+    otherStyles:[] as any[],
     headStyle:{},
+    colorArray:[] as any[],
+    colorIndex:0,
+    iconTouch:false,
     bgImage:'',
+    showEditText:false,
+    sNameText:'',
+    inputText:'',
+    sFontSize:30,
+    showChangeTextDialog:false
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -29,66 +35,70 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    dataCenter.getBoardDetailInfo((data:any)=>{
-      let names = data.name;
-      let nameStyles = [];
-      for(let i = 0;i < names.length;i++){
-        nameStyles.push({style:getTextStyle(names[i]),value:names[i].value});
-      }
-      let ageStyles = [];
-      for(let i = 0;i < data.age.length;i++){
-        ageStyles.push({style:getTextStyle(data.age[i]),value:data.age[i].value});
-      }
-      let headStyle = {style:getImageStyle(data.headpic),value:data.headpic.value};
-      this.setData({
-        detailInfo:{id:data.id,code:data.code},
-        bgImage:data.background,
-        nameStyles:nameStyles,
-        ageStyles:ageStyles,
-        headStyle:headStyle
-      })
-    },this.data.boardID)
+    DIYModel.getDetailInfo(this.data.boardID).then(()=>{
+        let sarray = DIYModel.colorArray;
+        this.setData({
+            bgImage:DIYModel.bgImage,
+            nameStyles:DIYModel.getNameStyle(),
+            ageStyles:DIYModel.getAgeStyle(),
+            otherStyles:DIYModel.getOtherStyle(),
+            headStyle:DIYModel.getHeadStyle(),
+            colorArray:sarray,
+            sFontSize:DIYModel.getFontSize(),
+            sNameText:DIYModel.getTextByKey()
+        })
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  tapSelectText(evt:any){
+    let str:string = evt.currentTarget.dataset.selectindex;
+    let index = ~~str.split('-')[0];
+    let type = ~~str.split('-')[1];
+    DIYModel.setCurSelect(index,type);
+    this.setData({
+      showEditText:true,
+      sNameText:DIYModel.getSelectText()
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  inputTextHandler(event:any){
+    let text = event.detail.value
+    let type = DIYModel.updateValue('value',text)
+    this.updateStyle(type,text);
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  confirmChangeText(){
+    let result = this.data.inputText;
+    DIYModel.updateValue('value',result);
+    this.setData({
+      showChangeTextDialog:false,
+      nameStyles:DIYModel.getNameStyle()
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
+  cancelChangeText(){
+    this.setData({showChangeTextDialog:false})
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
+  sliderChange(evt:any){
+    let type = DIYModel.updateValue('size',evt.detail.value);
+    this.updateStyle(type);
   },
+  // 更改文字大小
+  changeColor(evt:any){
+    let value = evt.detail.value;
+    let type = DIYModel.updateValue('color',value);
+    this.updateStyle(type);
+  },
+  updateStyle(type:number,text:string = ''){
+    let obj = {} as any;
+    if(text) obj.text = text;
+    if(type == 1){
+      obj.nameStyles = DIYModel.getNameStyle()
+    }
+    else if(type == 2){
+      obj.ageStyles = DIYModel.getAgeStyle()
+    }
+    else if(type == 3){
+      obj.otherStyles = DIYModel.getOtherStyle()
+    }
+    this.setData(obj);
+  },
+  close(){},
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

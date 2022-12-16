@@ -9,6 +9,5 @@ App<IAppOption>({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
     dataCenter.isLogin = false;
-    dataCenter.getUserInfo();
   },
 })

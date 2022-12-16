@@ -24,6 +24,9 @@
     top: 0;
     z-index: 999;
 }
+.container_info_cls {
+    display: block;
+}
 .head_info_cls {
     display: flex;
     flex-direction: row;
@@ -34,16 +37,17 @@
     margin: 40rpx 20rpx 20rpx 30rpx;
 }
 .user_nickname_cls {
-    display: inline-block;
+    display: block;
     padding-top: 50rpx;
     font-weight: bold;
 }
-.times_info_cls {
-    display: inline-block;
-    padding: 50rpx 0 0 20rpx;
+.user_detail_cls {
+    display: block;
+    position: absolute;
+    top: 110rpx;
+    left: 180rpx;
 }
 .get_times_cls {
-    display: inline-block;
     margin: 50rpx 0 0 30rpx;
     height: 36rpx;
     color: #ff0000;

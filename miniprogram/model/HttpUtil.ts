@@ -1,5 +1,5 @@
 export default class HttpUtil {
-    static baseUrl = 'http://192.168.31.55:8203/api';
+    static baseUrl = 'http://192.168.31.67:8203/api';
     
     static get(path:string,params:any = null){
         return new Promise((resolve,reject)=>{

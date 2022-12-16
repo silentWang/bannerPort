@@ -1,3 +1,4 @@
+import EventCenter from "./EventCenter";
 import HttpUtil from "./HttpUtil";
 
 class DataCenter {
@@ -16,17 +17,15 @@ class DataCenter {
     private _userInfo:any = {};
     private _access_token:string = '';
 
-    private testBoardList:any[] = [];
-
     private _homeBoardList:any[] = [];
     private _seriesList:any[] = [];
+    private _nextIndex = 0;
 
-    constructor(){
-        this.testBoardList = [
-            {id:1,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
-            {id:2,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
-            {id:3,image:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03'},
-        ]
+    constructor(){}
+
+    public getNextFontName(){
+        this._nextIndex++;
+        return 'customfont_' + this._nextIndex
     }
 
     public get curPage(){
@@ -82,6 +81,7 @@ class DataCenter {
             }
             dataCenter.isLogin = true;
             this._userInfo = res.data;
+            EventCenter.dispatch(EventCenter.GET_USER_INFO_EVENT)
         });
     }
 
@@ -151,54 +151,10 @@ class DataCenter {
     }
     /**获取模板详细信息 */
     public getBoardDetailInfo(callback:Function,temp_id:number|string){
-        let boardDetail = {
-            id:1,
-            code:'001',
-            font:'',
-            name:[
-                {
-                    value:'冯',
-                    x:0,
-                    y:0,
-                    size:46,
-                    rotation:20,
-                    color:'#ffffff',
-                    bold:true,
-                },
-                {
-                    value:'梦',
-                    x:0,
-                    y:0,
-                    size:46,
-                    rotation:20,
-                    color:'#ffffff',
-                    bold:true,
-                },
-            ],
-            age:[{
-                value:26,
-                size:32,
-                x:200,
-                y:0,
-                rotation:80,
-                color:'#ff0000',
-                bold:true,
-            }],
-            background:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.tukuppt.com%2Fbg_grid%2F00%2F24%2F26%2Fh46iPm2SWx.jpg%21%2Ffh%2F350&refer=http%3A%2F%2Fimg.tukuppt.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672540964&t=22eca1721bf9325ebb0590355c7d0b03',
-            headpic:{
-                value:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.dtstatic.com%2Fuploads%2Fblog%2F202107%2F11%2F20210711160059_e01a0.thumb.1000_0.jpg&refer=http%3A%2F%2Fc-ssl.dtstatic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672539096&t=397345db46d4bc0e1447f94c89219946',
-                x:250,
-                y:180,
-                rotation:120,
-                width:200,
-                height:200
-            }
-        }
-        callback(boardDetail)
-        HttpUtil.get('template/info',{temp_id}).then((res:any)=>{
-            if(res.code == 0){
-                callback && callback(res.data)
-            }
+        // let boardDetail = {"code":0,"msg":"ok","data":{"id":1,"code":"1","pic":"http://192.168.31.67:8203/storage/images/4ff773900657266cad34e374d18d5474.jpg","back_pic":"http:\/\/192.168.31.55:8203\/storage\/images\/a907e3c6217413876836bd72f354950d.png","font_url":"http:\/\/192.168.31.55:8203\/storage\/files\/b350c782ab6b58dd6670cd2f8e7ee3e1.TTC","type":1,"extra":{"age":[{"w":200,"x":0,"y":0,"bold":true,"size":46,"color":"#ffffff","value":"11","rotation":20}],"pic":[{"h":100,"w":100,"x":0,"y":0,"value":"","rotation":50}],"name":[{"w":200,"x":0,"y":0,"bold":true,"size":46,"color":"#ffffff","value":"张","rotation":20},{"w":200,"x":0,"y":0,"bold":true,"size":46,"color":"#ffffff","value":"三","rotation":20}]}}}
+        // callback(boardDetail.data)
+        HttpUtil.post('/template/info',{temp_id,name:'王亚'}).then((res:any)=>{
+            callback && callback(res)
         });
     }
 

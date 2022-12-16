@@ -1,4 +1,5 @@
 import { dataCenter } from "../../../model/DataCenter";
+import EventCenter from "../../../model/EventCenter";
 
 // pages/components/headItem/HeadItem.ts
 Component({
@@ -16,18 +17,34 @@ Component({
     myTimes: '模板DIY次数：0次',
     showAlert:false
   },
+  pageLifetimes: {
+    show: function() {
+      EventCenter.addListener(EventCenter.GET_USER_INFO_EVENT,this.updateUser,this)
+    },
+    hide: function() {
+      EventCenter.removeListener(EventCenter.GET_USER_INFO_EVENT,this.updateUser)
+    },
+  },
   ready(){
-    this.setData({
-      isLogin:dataCenter.isLogin,
-      canIUseGetUserProfile:dataCenter.canIUseGetUserProfile,
-      canIUseOpenData:dataCenter.canIUseOpenData,
-      myTimes:`模板DIY次数：${dataCenter.userInfo.num}次`
-    });
+    if(dataCenter.isLogin){
+      this.updateUser();
+    }
+    else{
+      dataCenter.getUserInfo();
+    }
   },
   /**
    * 组件的方法列表
    */
   methods: {
+    updateUser(){
+      this.setData({
+        isLogin:true,
+        canIUseGetUserProfile:dataCenter.canIUseGetUserProfile,
+        canIUseOpenData:dataCenter.canIUseOpenData,
+        myTimes:`模板DIY次数：${dataCenter.userInfo.num}次`
+      });
+    },
     getUserProfile() {
       dataCenter.checkIsHaveInfo();
     },

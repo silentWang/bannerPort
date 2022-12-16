@@ -1,3 +1,5 @@
+import { dataCenter } from "../model/DataCenter"
+
 export const formatTime = (date: Date) => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -18,14 +20,27 @@ const formatNumber = (n: number) => {
   return s[1] ? s : '0' + s
 }
 
-export function getTextStyle(obj:any,scale:number = 1){
+export function copyObject(srcObj:any){
+  if(typeof srcObj == 'string' 
+    || typeof srcObj == 'number'
+    || typeof srcObj == 'function'
+    || !srcObj
+    ) return srcObj;
+  let jstr = JSON.stringify(srcObj);
+  return JSON.parse(jstr);
+}
+
+export function getTextStyle(obj:any,font:string = '',scale:number = 1){
   if(!obj) return '';
   let sty = `color:${obj.color};`;
   sty += `left:${obj.x*scale}rpx;`;
   sty += `top:${obj.y*scale}rpx;`;
   sty += `font-size:${obj.size*scale}rpx;`;
+  sty += `width:${obj.w}rpx;`;
   sty += `bold:${obj.bold};`;
   sty += `transform:rotate(${obj.rotation}deg);`;
+  sty += `font-family:${font};`;
+  sty += `text-align:${obj.textAlign};`;
   return sty;
 }
 
@@ -33,8 +48,8 @@ export function getImageStyle(obj:any, scale:number = 1){
   if(!obj) return '';
   let sty = `left:${obj.x*scale}rpx;`;
   sty += `top:${obj.y*scale}rpx;`;
-  sty += `width:${obj.width*scale}rpx;`;
-  sty += `height:${obj.height*scale}rpx;`;
+  sty += `width:${obj.w*scale}rpx;`;
+  sty += `height:${obj.h*scale}rpx;`;
   sty += `transform:rotate(${obj.rotation}deg);`;
   return sty;
 }
@@ -53,4 +68,21 @@ export function downloadImage(url:string){
       })
     }
   })
+}
+
+export function getFont(fonturl:string){
+    let fontName = dataCenter.getNextFontName();
+    //英文
+    wx.loadFontFace({
+      family: fontName, //设置一个font-family使用的名字
+      source: `url(${fonturl})`, //字体资源的地址
+      success: console.log
+    })
+    return fontName;
+    //中文
+    // wx.loadFontFace({
+    //   family: fontName,
+    //   source: 'url("https://xxx.com/xxxx.otf")',
+    //   success: console.log
+    // })
 }

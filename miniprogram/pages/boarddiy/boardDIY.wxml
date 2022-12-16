@@ -1,22 +1,65 @@
 <!--pages/boarddiy/boardDIY.wxml-->
 <view class="top_show_cls" bindtap="close">
+  <headItem></headItem>
   <view class="bs_top_cls">
     <view class="bs_content_cls">
       <image class="bs_bg_cls" src="{{bgImage}}"/>
       <view>
         <block wx:for="{{nameStyles}}" wx:key="index">
-          <text class="text_cls" style="{{item.style}}">{{item.value}}</text>
+          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-1'}}">{{item.value}}</text>
         </block>
-        <block wx:for="{{ageStyles}}">
-          <text class="text_cls" style="{{item.style}}">{{item.value}}</text>
+        <block wx:for="{{ageStyles}}" wx:key="index">
+          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-2'}}">{{item.value}}</text>
         </block>
-        <block wx:if="{{headStyle}}">
-          <image class="icon_cls" style="{{headStyle.style}}" src="{{headStyle.value}}" />
+        <block wx:for="{{otherStyles}}" wx:key="index">
+          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-3'}}">{{item.value}}</text>
+        </block>
+        <block wx:if="{{headStyle}}" wx:key="index">
+          <movable-area>
+            <movable-view>
+              <image class="icon_cls" style="{{headStyle.style}}" src="{{headStyle.value}}" />
+            </movable-view>
+          </movable-area>
         </block>
       </view>
     </view>
-    <view class="bs_diybutton_cls">
-        <button type="primary" catchtap="close">预览</button>
-    </view>
+    <scroll-view scroll-y="true" scroll-x="false" class="edit_container_cls">
+      <block wx:if="{{showEditText}}">
+        <view class="editbox_cls">
+          <view class="edit_box_item_cls">
+            <text>内容</text>
+            <input value="{{sNameText}}" bindblur="inputTextHandler"/>
+          </view>
+          <view class="edit_box_item_cls">
+              <text>字体颜色</text>
+              <scroll-view class="color_list_cls" scroll-x="true" scroll-y="false">
+                <radio-group bindchange="changeColor">
+                  <block wx:for="{{colorArray}}" wx:key="index">
+                    <radio value="{{item}}" style="background:{{item}};color:{{item}}"/>
+                  </block>
+                </radio-group>
+              </scroll-view>
+          </view>
+          <view class="edit_box_item_cls">
+              <text>字体大小</text>
+              <slider bindchanging="sliderChange" value="{{sFontSize}}" min="30" max="200" block-color="#07c160" show-value/>
+          </view>
+          <view class="bs_diybutton_cls">
+              <button type="primary" catchtap="close">预览</button>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+    <!-- <block wx:if="{{showChangeTextDialog}}">
+      <view class="dialog_changetext_bg_cls">
+        <view class="dialog_changetext_cls">
+          <input value="{{sNameText}}" bindinput="inputTextHandler"/>
+          <view>
+            <button type="primary" style="width: 280rpx;" catchtap="confirmChangeText">确定</button>
+            <button type="primary" style="width: 280rpx;" catchtap="cancelChangeText">取消</button>
+          </view>
+        </view>
+      </view>
+    </block> -->
   </view>
 </view>
