@@ -1,17 +1,18 @@
-import { copyObject, getFont, getImageStyle, getTextStyle } from "../utils/util";
+import { getFont, getImageStyle, getTextStyle } from "../utils/util";
 import { dataCenter } from "./DataCenter";
 
-interface ItemStyleType {
-    w?:number,
-    h?:number,
-    x?:number,
-    y?:number,
-    rotation?:number,
-    value?:string,
-    color?:'',
-    size?:number,
-    bold?:number,
-    textAlign?:string
+export interface ItemStyleType {
+    w:number,
+    h:number,
+    x:number,
+    y:number,
+    rotation:number,
+    value:string,
+    color:'',
+    size:number,
+    bold:number,
+    textAlign:string
+    maxlength:number
 }
 
 class DIYModel {
@@ -22,21 +23,28 @@ class DIYModel {
         }
         return DIYModel._instance;
     }
-
+    /**本地尺寸 */
+    private _localWH = {width:750,height:422}
+    /**原始尺寸 */
+    private _originWH:{width:number,height:number} = {} as any;
     private _colorArray:string[] = [];
 
     private _boardID:string = '';
-    private _detailInfo:{id?:number,code?:number,type?:number,font_url?:string} = {};
+    private _detailInfo:{
+        id?:number,
+        code?:number,
+        type?:number
+    } = {};
     private _nameInfos:ItemStyleType[] = [];
     private _ageInfos:ItemStyleType[] = [];
     private _otherInfos:ItemStyleType[] = [];
-    private _headInfo:ItemStyleType = {};
+    private _headInfo:ItemStyleType = {} as any;
+    private _curFont:string = '';
     private _bgImage = '';
     private _title:string = '';
 
     private curSelect:number = 0;
     private curType:number = 1;// 1 name 2 age 3 other
-    private curFont:string = '';
     private sPosY:number = 0;
 
     public getDetailInfo(bid:string){
@@ -44,19 +52,31 @@ class DIYModel {
         return new Promise((resolve,reject)=>{
             dataCenter.getBoardDetailInfo((data:any)=>{
                 let extra = data.extra;
-                this.curFont = getFont(data.font_url);
-                this._detailInfo = {id:data.id,code:data.code,type:data.type,font_url:data.font_url};
-                this._nameInfos = extra.name;
-                this._ageInfos = extra.age;
-                this._otherInfos = extra.other_text;
-                this._headInfo = extra.pic[0];
-                this._headInfo.value = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673701048&t=cce166ca0033b8f18a7896c7ee65a1c5'
-                this._title = extra.title;
-                this._bgImage = data.pic;
-                this.sPosY = extra.name[0].y || 0
-                resolve(1);
+                getFont(data.font_url).then((fontName:any)=>{
+                    this._curFont = fontName;
+                    this._detailInfo = {id:data.id,code:data.code,type:data.type};
+                    // this._originWH = {width:data.back_pic_w,height:data.back_pic_h}
+                    this._originWH = {width:750,height:422}
+                    this._nameInfos = extra.name;
+                    this._ageInfos = extra.age;
+                    this._otherInfos = extra.other_text;
+                    this._headInfo = extra.pic[0];
+                    this._headInfo.value = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fblog%2F202104%2F22%2F20210422220415_2e4bd.jpg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673701048&t=cce166ca0033b8f18a7896c7ee65a1c5'
+                    this._title = extra.title;
+                    this._bgImage = data.pic;
+                    this.sPosY = extra.name[0].y || 0
+                    resolve(1);
+                });
             },bid)
         })
+    }
+
+    public get localWH(){
+        return this._localWH;
+    }
+
+    public get originWH(){
+        return this._originWH;
     }
 
     public get colorArray(){
@@ -83,6 +103,26 @@ class DIYModel {
 
     public get detailInfo(){
         return this._detailInfo;
+    }
+
+    public get nameInfo(){
+        return this._nameInfos;
+    }
+
+    public get ageInfo(){
+        return this._ageInfos;
+    }
+
+    public get otherInfo(){
+        return this._otherInfos;
+    }
+
+    public get headInfo(){
+        return this._headInfo;
+    }
+
+    public get curFont(){
+        return this._curFont;
     }
 
     public get title(){
@@ -168,7 +208,7 @@ class DIYModel {
         let names = this._nameInfos;
         let nameStyles = [];
         for(let i = 0;i < names.length;i++){
-            nameStyles.push({style:getTextStyle(names[i],this.curFont),value:names[i].value});
+            nameStyles.push({style:getTextStyle(names[i],this._curFont),value:names[i].value});
         }
         return nameStyles;
     }
@@ -177,7 +217,7 @@ class DIYModel {
         let ages = this._ageInfos;
         let ageStyles = [];
         for(let i = 0;i < ages.length;i++){
-            ageStyles.push({style:getTextStyle(ages[i],this.curFont),value:ages[i].value});
+            ageStyles.push({style:getTextStyle(ages[i],this._curFont),value:ages[i].value});
         }
         return ageStyles;
     }
@@ -186,14 +226,17 @@ class DIYModel {
         let others = this._otherInfos;
         let otherStyles = [];
         for(let i = 0;i < others.length;i++){
-            otherStyles.push({style:getTextStyle(others[i],this.curFont),value:others[i].value});
+            otherStyles.push({style:getTextStyle(others[i],this._curFont),value:others[i].value});
         }
         return otherStyles;
     }
 
     public getHeadStyle(){
         let headInfo = this._headInfo;
-        let headStyle = {style:getImageStyle(headInfo),value:headInfo && headInfo.value};
+        let headStyle = null;
+        if(headInfo){
+            headStyle = {style:getImageStyle(headInfo),value:headInfo && headInfo.value,x:headInfo.x,y:headInfo.y};
+        }
         return headStyle;
     }
 

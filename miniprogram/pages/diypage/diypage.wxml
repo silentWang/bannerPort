@@ -1,0 +1,3 @@
+<!--pages/diypage/diypage.wxml-->
+<web-view src="{{diyUrl}}">
+</web-view>

@@ -1,4 +1,5 @@
 import { dataCenter } from "../model/DataCenter"
+import DIYModel from "../model/DIYModel"
 
 export const formatTime = (date: Date) => {
   const year = date.getFullYear()
@@ -30,6 +31,20 @@ export function copyObject(srcObj:any){
   return JSON.parse(jstr);
 }
 
+export function getPxToRpx(px:number){
+  let info = wx.getSystemInfoSync();
+  let swidth = info.screenWidth;
+  let rwidth = DIYModel.localWH.width;
+  return px*rwidth/swidth;
+}
+
+export function getRpxToPx(rpx:number){
+  let info = wx.getSystemInfoSync();
+  let swidth = info.screenWidth;
+  let rwidth = DIYModel.localWH.width;
+  return rpx*swidth/rwidth;
+}
+
 export function getTextStyle(obj:any,font:string = '',scale:number = 1){
   if(!obj) return '';
   let sty = `color:${obj.color};`;
@@ -41,13 +56,16 @@ export function getTextStyle(obj:any,font:string = '',scale:number = 1){
   sty += `transform:rotate(${obj.rotation}deg);`;
   sty += `font-family:${font};`;
   sty += `text-align:${obj.textAlign};`;
+  // sty += `tranform-origin: left top;`;
   return sty;
 }
 
 export function getImageStyle(obj:any, scale:number = 1){
   if(!obj) return '';
-  let sty = `left:${obj.x*scale}rpx;`;
-  sty += `top:${obj.y*scale}rpx;`;
+  // let sty = `left:${obj.x*scale}rpx;`;
+  // sty += `top:${obj.y*scale}rpx;`;
+  let sty = `left:0rpx;`;
+  sty += `top:0rpx;`;
   sty += `width:${obj.w*scale}rpx;`;
   sty += `height:${obj.h*scale}rpx;`;
   sty += `transform:rotate(${obj.rotation}deg);`;
@@ -71,18 +89,17 @@ export function downloadImage(url:string){
 }
 
 export function getFont(fonturl:string){
-    let fontName = dataCenter.getNextFontName();
-    //英文
-    wx.loadFontFace({
-      family: fontName, //设置一个font-family使用的名字
-      source: `url(${fonturl})`, //字体资源的地址
-      success: console.log
-    })
-    return fontName;
-    //中文
-    // wx.loadFontFace({
-    //   family: fontName,
-    //   source: 'url("https://xxx.com/xxxx.otf")',
-    //   success: console.log
-    // })
+    return new Promise((resolve,reject)=>{
+      let fontName = dataCenter.getNextFontName();
+      wx.loadFontFace({
+        global: true, // 是否全局生效
+        family: fontName, //设置一个font-family使用的名字
+        source: `url('${fonturl}')`, //字体资源的地址
+        scopes: ["webview", "native"],
+        success: (res)=>{
+          resolve(fontName);
+          console.log(res)
+        }
+      })
+    });
 }

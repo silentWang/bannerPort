@@ -1,25 +1,38 @@
 <!--pages/boarddiy/boardDIY.wxml-->
-<view class="top_show_cls" bindtap="close">
+<view class="top_show_cls">
+  <canvas type="2d" id='picCanvas' class="pic_canvas_cls" style="width:{{picOriginWidth}}px;height:{{picOriginHeight}}px;"/>
   <headItem></headItem>
   <view class="bs_top_cls">
     <view class="bs_content_cls">
       <image class="bs_bg_cls" src="{{bgImage}}"/>
+      <block wx:if="{{headStyle}}" wx:key="index">
+        <movable-area class="bs_movable_area_cls" scale-area>
+          <movable-view 
+            class="icon_cls" 
+            x="{{headStyle.x}}" 
+            y="{{headStyle.y}}" 
+            style="{{headStyle.style}}" 
+            direction="all"
+            bindchange="onHeadChange" 
+            bindscale="onHeadScale" 
+            scale
+            scale-min="1" 
+            scale-max="5" 
+            scale-value="{{headScale}}"
+          >
+            <image src="{{headStyle.value}}" />
+          </movable-view>
+        </movable-area>
+      </block>
       <view>
         <block wx:for="{{nameStyles}}" wx:key="index">
-          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-1'}}">{{item.value}}</text>
+          <text class="text_cls" style="{{item.style}}" catchtap="tapSelectText" data-selectindex="{{index + '-1'}}">{{item.value}}</text>
         </block>
         <block wx:for="{{ageStyles}}" wx:key="index">
-          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-2'}}">{{item.value}}</text>
+          <text class="text_cls" style="{{item.style}}" catchtap="tapSelectText" data-selectindex="{{index + '-2'}}">{{item.value}}</text>
         </block>
         <block wx:for="{{otherStyles}}" wx:key="index">
-          <text class="text_cls" style="{{item.style}}" bindtap="tapSelectText" data-selectindex="{{index + '-3'}}">{{item.value}}</text>
-        </block>
-        <block wx:if="{{headStyle}}" wx:key="index">
-          <movable-area>
-            <movable-view>
-              <image class="icon_cls" style="{{headStyle.style}}" src="{{headStyle.value}}" />
-            </movable-view>
-          </movable-area>
+          <text class="text_cls" style="{{item.style}}" catchtap="tapSelectText" data-selectindex="{{index + '-3'}}">{{item.value}}</text>
         </block>
       </view>
     </view>
@@ -31,7 +44,7 @@
             <input value="{{sNameText}}" bindblur="inputTextHandler"/>
           </view>
           <view class="edit_box_item_cls">
-              <text>字体颜色</text>
+            <text>字体颜色</text>
               <scroll-view class="color_list_cls" scroll-x="true" scroll-y="false">
                 <radio-group bindchange="changeColor">
                   <block wx:for="{{colorArray}}" wx:key="index">
@@ -41,25 +54,24 @@
               </scroll-view>
           </view>
           <view class="edit_box_item_cls">
-              <text>字体大小</text>
+            <text>字体大小</text>
               <slider bindchanging="sliderChange" value="{{sFontSize}}" min="30" max="200" block-color="#07c160" show-value/>
           </view>
           <view class="bs_diybutton_cls">
-              <button type="primary" catchtap="close">预览</button>
+            <button type="primary" catchtap="previewHandler">预览</button>
           </view>
         </view>
       </block>
     </scroll-view>
-    <!-- <block wx:if="{{showChangeTextDialog}}">
-      <view class="dialog_changetext_bg_cls">
+    <block wx:if="{{showPreview}}">
+      <view class="preview_bg_cls">
         <view class="dialog_changetext_cls">
-          <input value="{{sNameText}}" bindinput="inputTextHandler"/>
           <view>
-            <button type="primary" style="width: 280rpx;" catchtap="confirmChangeText">确定</button>
-            <button type="primary" style="width: 280rpx;" catchtap="cancelChangeText">取消</button>
+            <button type="primary" style="width: 280rpx;" catchtap="confirm">确定</button>
+            <button type="primary" style="width: 280rpx;" catchtap="cancel">取消</button>
           </view>
         </view>
       </view>
-    </block> -->
+    </block>
   </view>
 </view>

@@ -30,16 +30,18 @@ Component({
    */
   methods: {
     clkToShow1(){
+      if(this.data.showSaveBtn) return;
       this.triggerEvent('showBoardEvent',this.data.boardInfo1)
     },
     clkToShow2(){
+      if(this.data.showSaveBtn) return;
       this.triggerEvent('showBoardEvent',this.data.boardInfo2)
     },
     clkToSave1(){
-      downloadImage(this.data.boardInfo1.image)
+      downloadImage(this.data.boardInfo1.pic)
     },
     clkToSave2(){
-      downloadImage(this.data.boardInfo2.image)
+      downloadImage(this.data.boardInfo2.pic)
     }
   }
 })

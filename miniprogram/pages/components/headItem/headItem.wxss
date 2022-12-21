@@ -18,11 +18,18 @@
     display: block;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
     left: 0;
     top: 0;
     z-index: 999;
+}
+.top_show_mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .container_info_cls {
     display: block;
@@ -64,6 +71,7 @@
     border-radius: 20rpx;
     background: #ffffff;
     color: #000000;
+    position: relative;
 }
 .h_label_cls {
     font-size: 42rpx;
@@ -74,13 +82,14 @@
 }
 .h_input_cls {
     width: 500rpx;
-    height: 100rpx;
+    height: 80rpx;
     font-size: 36rpx;
     border: 1px solid #000000;
     margin: 40rpx;
     margin: 0 auto;
     position: relative;
     top: 120rpx;
+    border-radius: 20rpx;
 }
 .bm_btn {
     width: 250rpx;

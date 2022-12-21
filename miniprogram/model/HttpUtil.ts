@@ -1,5 +1,5 @@
 export default class HttpUtil {
-    static baseUrl = 'http://192.168.31.67:8203/api';
+    static baseUrl = 'http://120.26.53.95/api';
     
     static get(path:string,params:any = null){
         return new Promise((resolve,reject)=>{
@@ -53,7 +53,7 @@ export default class HttpUtil {
                 success: function (res:any) {
                     if(jumperror){
                         if(res.data.code != 0){
-                            wx.showToast(res.data.msg)
+                            wx.showToast({title:res.data.msg,icon:'none'})
                             return;
                         }
                         resolve(res.data.data);

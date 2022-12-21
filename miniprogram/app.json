@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/boards/boards",
     "pages/mine/mine",
-    "pages/boarddiy/boardDIY"
+    "pages/boarddiy/boardDIY",
+    "pages/diypage/diypage"
   ],
   "window": {
     "backgroundTextStyle": "light",

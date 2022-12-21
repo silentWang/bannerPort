@@ -7,6 +7,12 @@
     left: 0;
     top: 0;
 }
+.pic_canvas_cls {
+    position: fixed;
+    z-index: 0;
+    left: 0;
+    top: 0;
+}
 .bs_top_cls {
     width: 100%;
     height: 100%;
@@ -25,6 +31,14 @@
     height: 100%;
     display: block;
 }
+.bs_movable_area_cls {
+    width: 750rpx;
+    height: 422rpx;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
 .text_cls {
     position: absolute;
     display: block;
@@ -36,6 +50,11 @@
 .icon_cls {
     position: absolute;
     display: block;
+    pointer-events: auto;
+}
+.icon_cls image {
+    width: 100%;
+    height: 100%;
 }
 .edit_container_cls {
     width: 100%;
@@ -113,7 +132,7 @@
     background: transparent;
 }
 
-.dialog_changetext_bg_cls {
+.preview_bg_cls {
     width: 100%;
     height: 100%;
     position: fixed;

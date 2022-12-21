@@ -1,35 +1,29 @@
-import { dataCenter } from "../../model/DataCenter"
+import { dataCenter } from "../../model/DataCenter";
 
-// pages/mine/mine.ts
+// pages/diypage/diypage.ts
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    childList:{}
+    diyUrl:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-
+  onLoad(data:any) {
+    let url = 'http://120.26.53.95:81/'
+    let path = `templateId=${data.templateId}&token=${dataCenter.access_token}`
+    this.setData({diyUrl:url + '?' + path})
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    dataCenter.getMyTemplateList((res:any)=>{
-      this.setData({
-        childList:res.data
-      })
-    })
-  },
 
-  showBoardHandler(evt:any){
-    console.log(evt)
   },
 
   /**

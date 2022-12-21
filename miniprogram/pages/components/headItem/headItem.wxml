@@ -23,11 +23,12 @@
       </view>
     </view>
     <block wx:if="{{showAlert}}">
-      <view class="top_show_cls" bindtap="close">
+      <view class="top_show_cls">
+        <view class="top_show_mask" catchtap="close"></view>
         <view class="top_dialog_cls">
           <text class="h_label_cls">请输入淘宝订单号获取次数</text>
-          <input class="h_input_cls" type="text" />
-          <view class="bm_btn">确定</view>
+          <input class="h_input_cls" type="text" value="{{orderListNo}}" bindblur="inputTextHandler"/>
+          <view class="bm_btn" catchtap="getExchangeTimes">确定</view>
         </view>
       </view>
     </block>

@@ -1,3 +1,4 @@
+import CanvasUtil from "../../model/CanvasUtil";
 import DIYModel from "../../model/DIYModel";
 
 // pages/boarddiy/boardDIY.ts
@@ -11,16 +12,19 @@ Page({
     nameStyles:[] as any[],
     ageStyles:[] as any[],
     otherStyles:[] as any[],
-    headStyle:{},
+    headStyle:{} as any,
     colorArray:[] as any[],
     colorIndex:0,
+    headScale:1,
     iconTouch:false,
     bgImage:'',
     showEditText:false,
     sNameText:'',
     inputText:'',
+    picOriginWidth:750,
+    picOriginHeight:422,
     sFontSize:30,
-    showChangeTextDialog:false
+    showPreview:false
   },
   /**
    * 生命周期函数--监听页面加载
@@ -37,6 +41,7 @@ Page({
   onReady() {
     DIYModel.getDetailInfo(this.data.boardID).then(()=>{
         let sarray = DIYModel.colorArray;
+        let wh = DIYModel.originWH;
         this.setData({
             bgImage:DIYModel.bgImage,
             nameStyles:DIYModel.getNameStyle(),
@@ -45,7 +50,9 @@ Page({
             headStyle:DIYModel.getHeadStyle(),
             colorArray:sarray,
             sFontSize:DIYModel.getFontSize(),
-            sNameText:DIYModel.getTextByKey()
+            sNameText:DIYModel.getTextByKey(),
+            picOriginWidth:wh.width,
+            picOriginHeight:wh.height
         })
     });
   },
@@ -64,16 +71,15 @@ Page({
     let type = DIYModel.updateValue('value',text)
     this.updateStyle(type,text);
   },
-  confirmChangeText(){
-    let result = this.data.inputText;
-    DIYModel.updateValue('value',result);
+  confirm(){
     this.setData({
-      showChangeTextDialog:false,
-      nameStyles:DIYModel.getNameStyle()
+      showPreview:false
     })
   },
-  cancelChangeText(){
-    this.setData({showChangeTextDialog:false})
+  cancel(){
+    this.setData({
+      showPreview:false
+    })
   },
   sliderChange(evt:any){
     let type = DIYModel.updateValue('size',evt.detail.value);
@@ -99,6 +105,15 @@ Page({
     }
     this.setData(obj);
   },
-  close(){},
+  onHeadChange(evt:any){
+    // console.log('--change--',evt)
+  },
+  onHeadScale(evt:any){
+    console.log('--scale--',evt)
+  },
+  previewHandler(){
+    this.setData({showPreview:true})
+    CanvasUtil.makeImage();
+  },
 
 })

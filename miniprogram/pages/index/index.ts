@@ -3,8 +3,6 @@
 import { dataCenter } from "../../model/DataCenter";
 
 // 获取应用实例
-const app = getApp<IAppOption>()
-
 Page({
   data: {
     homeList:{},

@@ -6,8 +6,7 @@
             <boardItemM wx:if="{{index%2 == 0}}" 
                 boardInfo1="{{childList[index]}}" 
                 boardInfo2="{{childList[index + 1]}}"
-                showSaveBtn="true"
-                bind:showBoardEvent="showBoardHandler"></boardItemM>
+                showSaveBtn="true"></boardItemM>
         </block>
     </scroll-view>
     <text class="ms_tip_cls">图片保存实效为3天，3天后不显示</text>

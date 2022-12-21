@@ -5,7 +5,7 @@
     </view>
     <block>
       <view class="bs_diybutton_cls">
-        <button type="primary" catchtap="startDIY">开始DIY</button>
+          <button type="primary" catchtap="startDIY">开始DIY</button>
       </view>
     </block>
   </view>

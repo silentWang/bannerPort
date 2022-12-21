@@ -1,3 +1,5 @@
+import { dataCenter } from "../../../model/DataCenter";
+
 // pages/components/boardShow/boardShow.ts
 Component({
   /**
@@ -15,6 +17,10 @@ Component({
    * 组件的初始数据
    */
   data: {
+    diyUrl:''
+  },
+
+  ready() {
   },
 
   /**
@@ -22,12 +28,17 @@ Component({
    */
   methods: {
     startDIY(){
+      let times = dataCenter.userInfo.num;
+      if(times > 0){
+        dataCenter.showPayTip()
+        return;
+      }
       wx.showModal({
-        content:'请确定是否消耗1次DIY次数？保存后不可修改',
+        content:'请确定是否消耗1次DIY次数？',
         success:(res)=>{
           if(res.confirm){
             wx.navigateTo({
-              url:'../../pages/boarddiy/boardDIY?id=' + this.data.tempData.id,
+              url: `../../pages/diypage/diypage?templateId=${this.data.tempData.id}`,
               complete:function(result){
                 console.log(result)
               }

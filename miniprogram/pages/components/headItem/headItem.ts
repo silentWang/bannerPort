@@ -14,6 +14,7 @@ Component({
     isLogin:false,
     canIUseGetUserProfile:false,
     canIUseOpenData:false,
+    orderListNo:'',
     myTimes: '模板DIY次数：0次',
     showAlert:false
   },
@@ -50,7 +51,17 @@ Component({
     },
     getDIYTimes(){
       this.setData({showAlert:true})
-      console.log("获取次数")
+    },
+    getExchangeTimes(){
+      if(!this.data.orderListNo) {
+        wx.showToast({title:'请输入正确的订单号',icon:'none'})
+        return;
+      }
+      dataCenter.getExchangeInfo(this.data.orderListNo);
+      this.setData({showAlert:false})
+    },
+    inputTextHandler(evt:any){
+      this.setData({orderListNo:evt.detail.value})
     },
     close(){
       this.setData({showAlert:false})
