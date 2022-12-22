@@ -11,9 +11,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isLogin:false,
-    canIUseGetUserProfile:false,
-    canIUseOpenData:false,
+    myHeadAvatar:'',
+    myNickname:'微信用户',
     orderListNo:'',
     myTimes: '模板DIY次数：0次',
     showAlert:false
@@ -27,7 +26,7 @@ Component({
     },
   },
   ready(){
-    if(dataCenter.isLogin){
+    if(dataCenter.isHadAuthor){
       this.updateUser();
     }
     else{
@@ -40,14 +39,10 @@ Component({
   methods: {
     updateUser(){
       this.setData({
-        isLogin:true,
-        canIUseGetUserProfile:dataCenter.canIUseGetUserProfile,
-        canIUseOpenData:dataCenter.canIUseOpenData,
+        myHeadAvatar:dataCenter.userInfo.avatarurl,
+        myNickname:dataCenter.userInfo.nickname,
         myTimes:`模板DIY次数：${dataCenter.userInfo.num}次`
       });
-    },
-    getUserProfile() {
-      dataCenter.checkIsHaveInfo();
     },
     getDIYTimes(){
       this.setData({showAlert:true})

@@ -1,4 +1,5 @@
 import { dataCenter } from "../../model/DataCenter";
+import HttpUtil from "../../model/HttpUtil";
 
 // pages/diypage/diypage.ts
 Page({
@@ -14,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(data:any) {
-    let url = 'http://120.26.53.95:81/'
+    let url = HttpUtil.diyUrl;
     let path = `templateId=${data.templateId}&token=${dataCenter.access_token}`
     this.setData({diyUrl:url + '?' + path})
   },

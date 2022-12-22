@@ -1,5 +1,6 @@
 export default class HttpUtil {
-    static baseUrl = 'http://120.26.53.95/api';
+    static baseUrl = 'https://postermanage.xudian8.com/api';
+    static diyUrl = "https://postermanage.h5.xudian8.com";
     
     static get(path:string,params:any = null){
         return new Promise((resolve,reject)=>{
@@ -51,6 +52,7 @@ export default class HttpUtil {
                 data: params,
                 method: 'POST',
                 success: function (res:any) {
+                    // console.log(path,res)
                     if(jumperror){
                         if(res.data.code != 0){
                             wx.showToast({title:res.data.msg,icon:'none'})

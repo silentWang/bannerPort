@@ -82,6 +82,7 @@ export function downloadImage(url:string){
         filePath: tempFilePath,  //设置下载图片的地址
         success:function(){
           console.log('图片保存成功')
+          wx.showToast({title:'图片保存成功',icon:'none'})
         }
       })
     }

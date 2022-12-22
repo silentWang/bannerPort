@@ -1,0 +1,22 @@
+/* pages/authpage/authpage.wxss */
+.auth_container_cls {
+    width: 100%;
+    height: 100%;
+}
+.auth_back_cls {
+    margin: 0 auto;
+    position: relative;
+    top: 30vh;
+}
+.auth_tip_cls {
+    width: 100%;
+    display: block;
+    font-size: 32rpx;
+    text-align: center;
+}
+.auth_button_cls {
+    position: relative;
+    top: 80rpx;
+    background: #07c160;
+    color:#fff;
+}

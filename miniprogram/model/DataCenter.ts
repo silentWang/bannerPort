@@ -11,10 +11,9 @@ class DataCenter {
         return DataCenter._instance;
     }
 
-    public isLogin:boolean = false;
+    public isHadAuthor:boolean = false;
     /**当前页面 */
     private _curPage:any = {};
-    private _canIUseGetUserProfile:boolean = true;
     private _userInfo:any = {};
     private _access_token:string = '';
 
@@ -24,6 +23,12 @@ class DataCenter {
 
     private intervalID = -1;
     private queryTimes = 0;
+    private pageSeriesNum = 0;
+    private pageSeriesMax = 0;
+    private pageChildNum = 0;
+    private pageChildMax = 0;
+    private pageMyNum = 0;
+    private pageMyMax = 0;
 
     constructor(){}
 
@@ -52,10 +57,6 @@ class DataCenter {
         return bool;
     }
 
-    public get canIUseGetUserProfile(){
-        return this._canIUseGetUserProfile;
-    }
-
     public get homeBoardList(){
         return this._homeBoardList;
     }
@@ -75,7 +76,7 @@ class DataCenter {
               });
             },
             complete:(res)=>{
-                console.log(res)
+                console.log('wxlogin complete',res)
             }
         })
     }
@@ -83,54 +84,48 @@ class DataCenter {
     public getUserInfo(){
         if(testMode){
             let testobj = {"code":0,"msg":"ok","data":{"id":3,"nickname":"silence","avatarurl":"https:\/\/thirdwx.qlogo.cn\/mmopen\/vi_32\/zuwkz0iaVAZKicRUslSibQiaUoAex5ntC6u08cWJic8kuAhI4cNAqwOswJro09Cr94Fn1ibP6OtFXJ1dMFJSXGAdXnIg\/132","num":147,"is_auth":1}}
-            dataCenter.isLogin = true;
+            this.isHadAuthor = true;
             this._userInfo = testobj.data;
             EventCenter.dispatch(EventCenter.GET_USER_INFO_EVENT)
             return;
         }
-
         HttpUtil.post('/user/info','',false).then((res:any)=>{
             if(res.code == 401){
                 this.authAction();
                 return;
             }
-            dataCenter.isLogin = true;
             this._userInfo = res.data;
+            if(this._userInfo.is_auth == 1){
+                this.isHadAuthor = true;
+            }
+            else{
+                wx.redirectTo({url:'../authpage/authpage'})
+            }
             EventCenter.dispatch(EventCenter.GET_USER_INFO_EVENT)
         });
     }
 
     /**更新信息 */
-    public checkIsHaveInfo(){
-        if(this._userInfo && this._userInfo.is_auth == 1) return true;
-        wx.getUserProfile({
-            desc: '展示用户信息',
-            success: (res) => {
-                console.log('授权成功')
-                let params = {
-                    nickname:res.userInfo.nickName,
-                    avatarurl:res.userInfo.avatarUrl,
-                    gender:res.userInfo.gender
-                }
-                this._userInfo.nickname = params.nickname;
-                this._userInfo.avatarurl = params.avatarurl;
-                this._userInfo.gender = params.gender;
-                if(this._curPage){
-                    this._curPage.onReady();
-                }
-                this.updateUserInfo(params);
-            },
-            complete:(res)=>{
-                console.log('getUserProfile -- complete',res)
-            }
-        })
-        return false;
+    public addUserInfo(userInfo:any){
+        let params = {
+            nickname:userInfo.nickName,
+            avatarurl:userInfo.avatarUrl,
+            gender:userInfo.gender
+        }
+        this._userInfo.nickname = params.nickname;
+        this._userInfo.avatarurl = params.avatarurl;
+        this._userInfo.gender = params.gender;
+        // if(this._curPage){
+        //     this._curPage.onReady();
+        // }
+        this.updateUserInfo(params);
+        wx.switchTab({url:'../index/index'});
     }
 
     /**更新数据 */
     private updateUserInfo(params:any){
         HttpUtil.post('/user/update',params).then((res:any)=>{
-            console.log('用户信息更新成功！')
+            this.getUserInfo();
         });
     }
     /**兑换 */
@@ -159,32 +154,70 @@ class DataCenter {
         
     }
     /** 系列*/
-    public getSeriesList(callback:Function,page:number,code:string = ''){
+    public getSeriesList(callback:Function){
         if(testMode){
             let testobj = {"code":0,"msg":"ok","data":{"current_page":1,"data":[{"id":2,"code":"10086","name":"分类1","pic":"http:\/\/postermanage2.oss-cn-hangzhou.aliyuncs.com\/images\/7b142a95031cd62e9067f2dfd80f11e3.jpg"}],"first_page_url":"http:\/\/192.168.31.67:8203\/api\/category\/list?page=1","from":1,"last_page":1,"last_page_url":"http:\/\/192.168.31.67:8203\/api\/category\/list?page=1","next_page_url":null,"path":"http:\/\/192.168.31.67:8203\/api\/category\/list","per_page":15,"prev_page_url":null,"to":1,"total":1}}
             this._seriesList = testobj.data.data;
             callback && callback();
             return;
         }
-        HttpUtil.post('/category/list').then((res:any)=>{
-            this._seriesList = res.data;
-            callback && callback();
+        let page = this.pageSeriesNum + 1;
+        if(this.pageSeriesMax <= 0){
+            page = 1;
+            this.pageSeriesNum = 0
+            this.pageSeriesMax = 1;
+        }
+        if(page > this.pageSeriesMax) {
+            callback && callback(false);
+            return;
+        }
+        HttpUtil.post('/category/list',{page}).then((res:any)=>{
+            this._seriesList = [...this._seriesList,...res.data];
+            this.pageSeriesNum = res.current_page;
+            this.pageSeriesMax = res.last_page;
+            callback && callback(true);
         });
     }
     /** 系列子 */
-    public getChildList(callback:Function,params:{page:number,category_id:number,code?:string}){
+    public getChildList(callback:Function,category_id:string,code:string,isFirst?:boolean){
         if(testMode){
             let testobj = {"code":0,"msg":"ok","data":{"current_page":1,"data":[{"id":4,"code":"10086","type":1,"pic":"http:\/\/postermanage2.oss-cn-hangzhou.aliyuncs.com\/images\/5889ebccdc904cd0b5309fbe143b55b4.jpg"}],"first_page_url":"http:\/\/192.168.31.67:8203\/api\/template\/list?page=1","from":1,"last_page":1,"last_page_url":"http:\/\/192.168.31.67:8203\/api\/template\/list?page=1","next_page_url":null,"path":"http:\/\/192.168.31.67:8203\/api\/template\/list","per_page":15,"prev_page_url":null,"to":1,"total":1}}
             callback && callback(testobj.data);
             return;
         }
+        let page = this.pageChildNum + 1;
+        if(isFirst || this.pageChildMax <= 0){
+            this.pageChildNum = 0;
+            this.pageChildMax = 1;
+            page = 1;
+        }
+        if(page > this.pageChildMax) {
+            callback && callback(false);
+            return;
+        }
+        let params = {page,category_id,code}
         HttpUtil.post('/template/list',params).then((res:any)=>{
+            this.pageChildNum = res.current_page;
+            this.pageChildMax = res.last_page;
             callback && callback(res);
         });
     }
     /**我的模板 */
     public getMyTemplateList(callback:Function){
-        HttpUtil.post('/user/template/list').then((res:any)=>{
+        let page = this.pageMyNum;
+        if(this.pageMyMax <= 0){
+            page = 1;
+            this.pageMyMax = 0
+            this.pageMyNum = 1;
+        }
+        if(page > this.pageMyMax) {
+            callback && callback(false);
+            return;
+        }
+        
+        HttpUtil.post('/user/template/list',{page}).then((res:any)=>{
+            this.pageMyNum = res.current_page;
+            this.pageMyMax = res.last_page;
             callback && callback(res);
         });
     }
@@ -207,7 +240,7 @@ class DataCenter {
 
     public showPayTip(){
         wx.showModal({
-            content:'DIY次数已用完，请点击界面右上角获得次数\n若无订单号，可直接购买',
+            content:'DIY次数已用完，请点击界面右上角获得次数，若无订单号，可直接购买',
             confirmText:'购买次数',
             cancelText:'确定',
             success:(res)=>{
@@ -230,6 +263,7 @@ class DataCenter {
     }
 
     private startManyQueryPay(trade_no:string){
+        wx.showLoading({title:'支付中...',mask:true})
         clearInterval(this.intervalID);
         this.queryTimes = 0;
         this.intervalID = setInterval(()=>{
@@ -237,6 +271,7 @@ class DataCenter {
             this.queryTimes++;
             if(this.queryTimes >= 10){
                 clearInterval(this.intervalID);
+                wx.hideLoading();
             }
         },3000);
     }
@@ -246,11 +281,11 @@ class DataCenter {
             if(res.status == 1){
                 this.getUserInfo();
                 clearInterval(this.intervalID);
+                wx.hideLoading();
                 this.queryTimes = 0;
             }
         })
     }
     
 }
-
 export const dataCenter = DataCenter.instance;

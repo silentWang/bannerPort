@@ -1,7 +1,7 @@
 <!--pages/boards/boards.wxml-->
 <view class="container">
   <headItem></headItem>
-  <scroll-view class="list_cls" scroll-y="true">
+  <scroll-view class="list_cls" scroll-y="true" lower-threshold="{{20}}" bindscrolltolower="scrollLower">
     <block wx:if="{{isSeries}}">
       <block wx:for="{{seriesList}}" wx:key="index">
         <boardItemS seriesInfo="{{item}}" data-seriesItem="{{item}}" bindtap="showChildList" class="boardItem_cls"></boardItemS>
@@ -15,7 +15,14 @@
           bind:showBoardEvent="showBoardHandler"></boardItemM>
       </block>
     </block>
+    <view class='loading_cls' wx:if="{{ isLoading }}">加载中...</view>
   </scroll-view>
+  <block wx:if="{{isBlank}}">
+    <view class="blank_cls">空空如也</view>
+  </block>
+  <block wx:if="{{!isSeries}}">
+    <view class="back_btn" bindtap="onTapBack">返回</view>
+  </block>
   <block wx:if="{{showDetail}}">
     <boardShow tempData="{{boardData}}" bind:hideBoardEvent="hideBoard"></boardShow>
   </block>

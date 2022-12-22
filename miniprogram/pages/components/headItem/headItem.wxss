@@ -1,17 +1,8 @@
 /* pages/components/headItem/HeadItem.wxss */
-.userinfo_cls {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.01);
-    padding-top: 450rpx;
-    z-index: 999;
-}
 .top_nav_cls {
     width: 100%;
-    height: 200rpx;
+    height: 18vh;
+    min-height: 200rpx;
     border-bottom: 1px solid #999;
 }
 .top_show_cls {
@@ -42,6 +33,10 @@
     width: 128rpx;
     height: 128rpx;
     margin: 40rpx 20rpx 20rpx 30rpx;
+}
+.userinfo_avatar_cls image {
+    width: 100%;
+    height: 100%;
 }
 .user_nickname_cls {
     display: block;

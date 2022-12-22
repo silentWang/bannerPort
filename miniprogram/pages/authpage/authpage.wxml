@@ -1,0 +1,8 @@
+<!--pages/authpage/authpage.wxml-->
+<view class="auth_container_cls">
+    <view class="auth_back_cls">
+        <text class="auth_tip_cls">松鼠模板需要获取您的用户信息(名称、头像等)</text>
+        <button wx:if="{{canIUseGetUserProfile}}" class="auth_button_cls" bindtap="getUserProfile"> 获取头像昵称 </button>
+        <button wx:else open-type="getUserInfo" class="auth_button_cls" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    </view>
+</view>

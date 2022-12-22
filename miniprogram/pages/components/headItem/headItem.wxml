@@ -1,21 +1,15 @@
 <!--pages/components/headItem/HeadItem.wxml-->
 <view>
-    <view wx:if="{{!isLogin}}" class="userinfo_cls" bindtap="getUserProfile">
-      <!-- <button wx:if="{{canIUseGetUserProfile}}" >授权登录</button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view> -->
-    </view>
     <view class="top_nav_cls">
       <view class="container_info_cls">
-        <block wx:if="{{canIUseOpenData}}">
-          <view class="head_info_cls">
-            <view class="userinfo_avatar_cls">
-              <open-data type="userAvatarUrl"></open-data>
-            </view>
-            <view class="user_nickname_cls">
-              <open-data type="userNickName"></open-data>
-            </view>
+        <view class="head_info_cls">
+          <view class="userinfo_avatar_cls">
+            <image src="{{myHeadAvatar}}"/>
           </view>
-        </block>
+          <view class="user_nickname_cls">
+            <text>{{myNickname}}</text>
+          </view>
+        </view>
         <view class="user_detail_cls">
           <text>{{myTimes}}</text>
           <text class="get_times_cls" bindtap="getDIYTimes">获取次数</text>

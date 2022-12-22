@@ -1,13 +1,15 @@
 /* pages/components/boardItem/boardItem.wxss */
 .b_top_cls {
     width: 648rpx;
+    height: 365rpx;
     margin: 0 auto;
     position: relative;
     text-align: center;
 }
 .b_big_cls {
     width: 100%;
-    height: 365rpx;
+    height: 100%;
+    display: absolute;
 }
 .b_bg_cls {
     width: 100%;
@@ -15,10 +17,13 @@
     display: block;
 }
 .b_name_cls {
-    font-size: 48rpx;
-    font-weight: bold;
-    color:antiquewhite;
+    font-size: 24rpx;
+    color: #1010cf;
     display: block;
-    position: relative;
-    top: -200rpx;
+    position: absolute;
+    left: -1rpx;
+    top: -1rpx;
+    padding: 8rpx;
+    background: #fff;
+    border-radius: 5rpx;
 }

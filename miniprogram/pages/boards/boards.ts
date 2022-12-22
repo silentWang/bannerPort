@@ -9,9 +9,13 @@ Page({
   data: {
     isSeries:true,
     showDetail:false,
+    isLoading:false,
+    isBlank:false,
     boardData:{},
     seriesList:{},
-    childList:{},
+    childList:[] as any[],
+    categoryId:'',
+    categoryCode:''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -24,12 +28,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
+    this.setData({isLoading:true})
     dataCenter.getSeriesList(()=>{
+      let isblank = (!dataCenter.seriesList || dataCenter.seriesList.length == 0)
       this.setData({
         isSeries:true,
+        isLoading:false,
+        isBlank:isblank,
         seriesList:dataCenter.seriesList
       });
-    },1)
+    })
   },
 
   /**
@@ -66,12 +74,43 @@ Page({
   onReachBottom() {
     
   },
+  scrollLower(){
+    this.setData({isLoading:true})
+    if(this.data.isSeries){
+      dataCenter.getSeriesList((ismore:boolean)=>{
+        let obj:any = {isLoading:false}
+        if(ismore){
+          obj.seriesList = dataCenter.seriesList
+        }
+        this.setData(obj);
+      })
+    }
+    else{
+      dataCenter.getChildList((res:any)=>{
+        let obj:any = {isLoading:false}
+        if(!res){
+          obj.seriesList = [...this.data.childList,...res.data]
+        }
+        this.setData(obj);
+      },this.data.categoryId,this.data.categoryCode);
+    }
+  },
   showChildList(data:any){
     let info = data.currentTarget.dataset.seriesitem;
-    let params = {page:1,category_id:info.id,code:''}
+    this.setData({
+      categoryId:info.id,
+      categoryCode:info.code,
+      isSeries:false,
+      isLoading:true
+    })
     dataCenter.getChildList((res:any)=>{
-      this.setData({isSeries:false,childList:res.data});
-    },params);
+      let isblank = (!res.data || res.data.length == 0);
+      let obj:any = {isBlank:isblank,isLoading:false}
+      if(!isblank){
+        obj.childList = res.data;
+      }
+      this.setData(obj);
+    },info.id,info.code,true);
   },
   showBoardHandler(data:any){
     let info = data.detail;
@@ -80,7 +119,13 @@ Page({
       showDetail:true
     })
   },
-
+  onTapBack(){
+    let isblank = (!dataCenter.seriesList || dataCenter.seriesList.length == 0)
+    this.setData({
+      isSeries:true,
+      isBlank:isblank
+    })
+  },
   hideBoard(){
     this.setData({showDetail:false})
   },

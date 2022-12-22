@@ -1,13 +1,17 @@
 <view class="container">
     <headItem></headItem>
     <view class="ms_title_cls">我的作品</view>
-    <scroll-view class="list_cls" scroll-y="true">
-        <block wx:for="{{childList}}" wx:key="index">
+    <scroll-view class="list_cls" scroll-y="true" lower-threshold="{{20}}" bindscrolltolower="scrollLower">
+        <block wx:for="{{myBoardList}}" wx:key="index">
             <boardItemM wx:if="{{index%2 == 0}}" 
-                boardInfo1="{{childList[index]}}" 
-                boardInfo2="{{childList[index + 1]}}"
+                boardInfo1="{{myBoardList[index]}}" 
+                boardInfo2="{{myBoardList[index + 1]}}"
                 showSaveBtn="true"></boardItemM>
         </block>
+        <view class='loading_cls' wx:if="{{ isLoading }}">加载中...</view>
     </scroll-view>
     <text class="ms_tip_cls">图片保存实效为3天，3天后不显示</text>
+    <block wx:if="{{isBlank}}">
+        <view class="blank_cls">空空如也</view>
+    </block>
 </view>

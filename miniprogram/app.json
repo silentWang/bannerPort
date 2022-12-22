@@ -5,7 +5,8 @@
     "pages/boards/boards",
     "pages/mine/mine",
     "pages/boarddiy/boardDIY",
-    "pages/diypage/diypage"
+    "pages/diypage/diypage",
+    "pages/authpage/authpage"
   ],
   "window": {
     "backgroundTextStyle": "light",

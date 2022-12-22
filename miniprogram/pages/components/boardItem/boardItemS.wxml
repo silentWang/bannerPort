@@ -2,6 +2,6 @@
 <view class="b_top_cls">
     <view class="b_big_cls">
         <image src="{{seriesInfo.pic}}" class="b_bg_cls"/>
-        <text class="b_name_cls">{{seriesInfo.name}}</text>
+        <text class="b_name_cls">code:{{seriesInfo.code}}</text>
     </view>
 </view>
