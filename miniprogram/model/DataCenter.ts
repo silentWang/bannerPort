@@ -203,12 +203,12 @@ class DataCenter {
         });
     }
     /**我的模板 */
-    public getMyTemplateList(callback:Function){
-        let page = this.pageMyNum;
-        if(this.pageMyMax <= 0){
+    public getMyTemplateList(callback:Function,isfirst:number){
+        let page = this.pageMyNum + 1;
+        if(this.pageMyMax <= 0 || isfirst == 1){
             page = 1;
-            this.pageMyMax = 0
-            this.pageMyNum = 1;
+            this.pageMyMax = 1
+            this.pageMyNum = 0;
         }
         if(page > this.pageMyMax) {
             callback && callback(false);

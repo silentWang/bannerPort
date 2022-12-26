@@ -1,6 +1,6 @@
+// pages/authpage/authpage.ts
 import { dataCenter } from "../../model/DataCenter"
 
-// pages/authpage/authpage.ts
 Page({
 
   /**

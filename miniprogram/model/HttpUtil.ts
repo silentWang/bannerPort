@@ -55,7 +55,6 @@ export default class HttpUtil {
                     // console.log(path,res)
                     if(jumperror){
                         if(res.data.code != 0){
-                            wx.showToast({title:res.data.msg,icon:'none'})
                             return;
                         }
                         resolve(res.data.data);
@@ -63,8 +62,11 @@ export default class HttpUtil {
                     else{
                         resolve(res.data);
                     }
+                },
+                fail:function(res:any){
+                    // wx.showToast({title:'fail:' + res.errMsg,icon:'none'})
                 }
-             });
+            });
 
         })
     }

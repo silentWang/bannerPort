@@ -53,13 +53,13 @@ Component({
         return;
       }
       dataCenter.getExchangeInfo(this.data.orderListNo);
-      this.setData({showAlert:false})
+      this.close()
     },
     inputTextHandler(evt:any){
       this.setData({orderListNo:evt.detail.value})
     },
     close(){
-      this.setData({showAlert:false})
+      this.setData({showAlert:false,orderListNo:''})
     }
   }
 })

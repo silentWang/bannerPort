@@ -15,36 +15,46 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-
+  onLoad(options:any) {
+    console.log('options---',options)
+    const eventChannel = this.getOpenerEventChannel()
+    // 监听 acceptDataFromOpenerPage 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
+    eventChannel && eventChannel.on('acceptDataFromOpenerPage', function(data) {
+      console.log(data)
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.loadBoardList();
   },
   scrollLower(){
-    this.loadBoardList();
+    this.loadBoardList(0);
   },
-  loadBoardList(){
+  loadBoardList(isfirst:number){
     this.setData({isLoading:true})
     dataCenter.getMyTemplateList((res:any)=>{
       let obj:any = {isLoading:false};
       if(res){
-        obj.myBoardList = [...this.data.myBoardList,...res.data];
+        if(isfirst == 1){
+          obj.myBoardList = res.data;
+        }
+        else{
+          obj.myBoardList = [...this.data.myBoardList,...res.data];
+        }
       }
-      obj.isBlank = (!obj.myBoardList || obj.myBoardList.length == 0);
+      obj.isBlank = (!obj.myBoardList || obj.myBoardList.length == 0) && this.data.myBoardList.length == 0;
       this.setData(obj)
-    })
+    },isfirst)
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({myBoardList:[]})
+    this.loadBoardList(1);
   },
 
   /**

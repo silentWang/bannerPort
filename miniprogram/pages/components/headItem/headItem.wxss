@@ -85,6 +85,7 @@
     position: relative;
     top: 120rpx;
     border-radius: 20rpx;
+    padding-left: 20rpx;
 }
 .bm_btn {
     width: 250rpx;
