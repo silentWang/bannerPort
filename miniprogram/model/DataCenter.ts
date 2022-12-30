@@ -195,7 +195,7 @@ class DataCenter {
             callback && callback(false);
             return;
         }
-        let params = {page,category_id,code}
+        let params = {page,category_id,code:''}
         HttpUtil.post('/template/list',params).then((res:any)=>{
             this.pageChildNum = res.current_page;
             this.pageChildMax = res.last_page;

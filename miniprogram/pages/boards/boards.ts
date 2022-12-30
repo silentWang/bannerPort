@@ -100,6 +100,7 @@ Page({
     this.setData({
       categoryId:info.id,
       categoryCode:info.code,
+      childList:[],
       isSeries:false,
       isLoading:true
     })

@@ -5,5 +5,5 @@
         <button wx:if="{{canIUseGetUserProfile}}" class="auth_button_cls" bindtap="getUserProfile"> 获取头像昵称 </button>
         <button wx:else open-type="getUserInfo" class="auth_button_cls" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     </view> -->
-    <web-view src="https://postermanage.xudian8.com/web/wechat/auth"/>
+    <web-view src="https://www.songshumoban01.com.cn/web/wechat/auth"/>
 </view>

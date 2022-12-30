@@ -1,6 +1,6 @@
 export default class HttpUtil {
-    static baseUrl = 'https://postermanage.xudian8.com/api';
-    static diyUrl = "https://postermanage.h5.xudian8.com";
+    static baseUrl = 'https://www.songshumoban01.com.cn/api';
+    static diyUrl = "https://h5.songshumoban01.com.cn";
     
     static get(path:string,params:any = null){
         return new Promise((resolve,reject)=>{

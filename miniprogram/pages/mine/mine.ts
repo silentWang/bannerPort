@@ -17,11 +17,11 @@ Page({
    */
   onLoad(options:any) {
     console.log('options---',options)
-    const eventChannel = this.getOpenerEventChannel()
-    // 监听 acceptDataFromOpenerPage 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
-    eventChannel && eventChannel.on('acceptDataFromOpenerPage', function(data) {
-      console.log(data)
-    })
+    // const eventChannel = this.getOpenerEventChannel()
+    // // 监听 acceptDataFromOpenerPage 事件，获取上一页面通过 eventChannel 传送到当前页面的数据
+    // eventChannel && eventChannel.on('acceptDataFromOpenerPage', function(data) {
+    //   console.log(data)
+    // })
   },
 
   /**
