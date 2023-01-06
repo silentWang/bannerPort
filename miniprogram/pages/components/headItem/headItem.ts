@@ -19,6 +19,7 @@ Component({
   },
   pageLifetimes: {
     show: function() {
+      this.updateUser();
       EventCenter.addListener(EventCenter.GET_USER_INFO_EVENT,this.updateUser,this)
     },
     hide: function() {

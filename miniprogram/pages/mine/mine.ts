@@ -55,6 +55,7 @@ Page({
   onShow() {
     this.setData({myBoardList:[]})
     this.loadBoardList(1);
+    dataCenter.getUserInfo();
   },
 
   /**
