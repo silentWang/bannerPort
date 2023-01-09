@@ -24,7 +24,7 @@
     text-align: center;
     color: #ffffff;
     font-weight: bold;
-    padding-top: 20rpx;
+    padding-top: 18rpx;
     margin-top: 10rpx;
 }
 .text_cls {

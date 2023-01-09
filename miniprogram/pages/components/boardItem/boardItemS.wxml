@@ -1,7 +1,7 @@
 <!--pages/components/boardItem/boardItem.wxml-->
 <view class="b_top_cls">
     <view class="b_big_cls">
-        <image src="{{seriesInfo.pic}}" class="b_bg_cls"/>
-        <text class="b_name_cls">code:{{seriesInfo.code}}</text>
+        <image src="{{seriesInfo.pic}}" mode="aspectFit" class="b_bg_cls"/>
+        <text class="b_code_cls">code:{{seriesInfo.code}}</text>
     </view>
 </view>

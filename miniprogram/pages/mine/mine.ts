@@ -9,7 +9,9 @@ Page({
   data: {
     myBoardList:[] as any[],
     isLoading:false,
-    isBlank:false
+    isBlank:false,
+    boardData:{},
+    showDetail:false
   },
 
   /**
@@ -56,6 +58,16 @@ Page({
     this.setData({myBoardList:[]})
     this.loadBoardList(1);
     dataCenter.getUserInfo();
+  },
+  hideBoard(){
+    this.setData({showDetail:false})
+  },
+  showBoardHandler(data:any){
+    let info = data.detail;
+    this.setData({
+      boardData:info,
+      showDetail:true
+    })
   },
 
   /**

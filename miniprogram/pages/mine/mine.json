@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "headItem":"../components/headItem/headItem",
-    "boardItemM":"../components/boardItem/boardItemM"
+    "boardItemM":"../components/boardItem/boardItemM",
+    "boardShow":"../components/boardShow/boardShow"
   }
 }

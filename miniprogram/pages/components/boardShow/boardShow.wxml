@@ -5,7 +5,8 @@
     </view>
     <block>
       <view class="bs_diybutton_cls">
-          <button type="primary" catchtap="startDIY">开始DIY</button>
+          <button wx:if="{{!isMineType}}" type="primary" catchtap="startDIY">开始DIY</button>
+          <button wx:if="{{isMineType}}" type="primary" catchtap="saveToPhone">保存到手机</button>
       </view>
     </block>
   </view>

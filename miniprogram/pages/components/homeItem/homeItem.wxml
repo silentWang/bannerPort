@@ -1,4 +1,4 @@
 <!--pages/components/homeItem/homeItem.wxml-->
 <view class="h_top_cls">
-    <image class="bg_cls" src="{{tempData.pic}}"/>
+    <image class="bg_cls" mode="aspectFit" src="{{tempData.pic}}"/>
 </view>

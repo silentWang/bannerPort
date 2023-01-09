@@ -1,5 +1,5 @@
 import { dataCenter } from "../../../model/DataCenter";
-
+import { downloadImage } from "../../../utils/util"
 // pages/components/boardShow/boardShow.ts
 Component({
   /**
@@ -10,6 +10,10 @@ Component({
       type:Object,
       value:{blank:true},
       id:0
+    },
+    isMineType:{
+      type:Boolean,
+      value:false
     }
   },
 
@@ -39,6 +43,9 @@ Component({
           console.log(result)
         }
       })
+    },
+    saveToPhone(){
+      downloadImage(this.data.tempData.pic)
     },
     close(){
       // if(this.data.showDIY) return;

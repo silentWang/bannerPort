@@ -131,7 +131,7 @@ class DataCenter {
     /**兑换 */
     public getExchangeInfo(no:string){
         HttpUtil.post('/user/exchange',{no}).then((res:any)=>{
-            console.log(res)
+            wx.showToast({title:'兑换成功，恭喜获得',icon:'none'})
             this.getUserInfo();
         });
     }

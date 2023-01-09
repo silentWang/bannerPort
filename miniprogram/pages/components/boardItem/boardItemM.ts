@@ -30,11 +30,11 @@ Component({
    */
   methods: {
     clkToShow1(){
-      if(this.data.showSaveBtn) return;
+      // if(this.data.showSaveBtn) return;
       this.triggerEvent('showBoardEvent',this.data.boardInfo1)
     },
     clkToShow2(){
-      if(this.data.showSaveBtn) return;
+      // if(this.data.showSaveBtn) return;
       this.triggerEvent('showBoardEvent',this.data.boardInfo2)
     },
     clkToSave1(){

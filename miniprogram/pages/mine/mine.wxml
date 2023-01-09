@@ -6,6 +6,7 @@
             <boardItemM wx:if="{{index%2 == 0}}" 
                 boardInfo1="{{myBoardList[index]}}" 
                 boardInfo2="{{myBoardList[index + 1]}}"
+                bind:showBoardEvent="showBoardHandler"
                 showSaveBtn="true"></boardItemM>
         </block>
         <view class='loading_cls' wx:if="{{ isLoading }}">加载中...</view>
@@ -13,5 +14,8 @@
     <text class="ms_tip_cls">图片保存实效为3天，3天后不显示</text>
     <block wx:if="{{isBlank}}">
         <view class="blank_cls">空空如也</view>
+    </block>
+    <block wx:if="{{showDetail}}">
+        <boardShow tempData="{{boardData}}" isMineType="true" bind:hideBoardEvent="hideBoard"></boardShow>
     </block>
 </view>

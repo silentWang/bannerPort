@@ -12,17 +12,17 @@
     display: absolute;
 }
 .b_bg_cls {
-    width: 100%;
-    height: 100%;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
     display: block;
 }
-.b_name_cls {
+.b_code_cls {
     font-size: 24rpx;
     color: #1010cf;
     display: block;
     position: absolute;
-    left: -1rpx;
-    top: -1rpx;
+    left: 0rpx;
+    top: 0rpx;
     padding: 8rpx;
     background: #fff;
     border-radius: 5rpx;
