@@ -18,13 +18,17 @@
     height: 183rpx;
 }
 .bm_btn {
-    height: 50rpx;
+    height: 60rpx;
     background-color: #3FC154;
     border-radius: 10rpx;
     text-align: center;
     color: #ffffff;
     font-weight: bold;
-    padding-top: 18rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding-top: 6rpx; */
+    /* padding-bottom: 6rpx; */
     margin-top: 10rpx;
 }
 .text_cls {

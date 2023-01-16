@@ -11,7 +11,7 @@
         </block>
         <view class='loading_cls' wx:if="{{ isLoading }}">加载中...</view>
     </scroll-view>
-    <text class="ms_tip_cls">图片保存实效为3天，3天后不显示</text>
+    <view class="ms_tip_cls">图片保存实效为3天，3天后不显示</view>
     <block wx:if="{{isBlank}}">
         <view class="blank_cls">空空如也</view>
     </block>
