@@ -40,11 +40,13 @@
     height: 6vh;
     position: absolute;
     text-align: right;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     right: 0;
     bottom: 0;
     border-top: 1px solid #999;
-    padding: 1vh 2vh;
+    /* padding: 1vh 2vh; */
     box-sizing: border-box;
 }
 .boardItem_cls {

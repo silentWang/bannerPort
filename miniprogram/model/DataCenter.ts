@@ -130,8 +130,13 @@ class DataCenter {
     }
     /**兑换 */
     public getExchangeInfo(no:string){
+        wx.showLoading({
+            mask: true,
+            title: "loading..."
+        })
         HttpUtil.post('/user/exchange',{no}).then((res:any)=>{
             wx.showToast({title:'兑换成功',icon:'none'})
+            wx.hideLoading();
             this.getUserInfo();
         });
     }
@@ -144,9 +149,14 @@ class DataCenter {
             callback && callback();
             return;
         }
+        wx.showLoading({
+            mask: true,
+            title: "loading..."
+        })
         HttpUtil.post('/banner/list',{page}).then((res:any)=>{
             this._homeBoardList = res.data;
             callback && callback();
+            wx.hideLoading()
         });
     }
 
@@ -171,11 +181,16 @@ class DataCenter {
             callback && callback(false);
             return;
         }
+        wx.showLoading({
+            mask: true,
+            title: "loading..."
+        })
         HttpUtil.post('/category/list',{page}).then((res:any)=>{
             this._seriesList = [...this._seriesList,...res.data];
             this.pageSeriesNum = res.current_page;
             this.pageSeriesMax = res.last_page;
             callback && callback(true);
+            wx.hideLoading()
         });
     }
     /** 系列子 */
@@ -195,11 +210,16 @@ class DataCenter {
             callback && callback(false);
             return;
         }
+        wx.showLoading({
+            mask: true,
+            title: "loading..."
+        })
         let params = {page,category_id,code:''}
         HttpUtil.post('/template/list',params).then((res:any)=>{
             this.pageChildNum = res.current_page;
             this.pageChildMax = res.last_page;
             callback && callback(res);
+            wx.hideLoading()
         });
     }
     /**我的模板 */
@@ -214,11 +234,15 @@ class DataCenter {
             callback && callback(false);
             return;
         }
-        
+        wx.showLoading({
+            mask: true,
+            title: "loading..."
+        })
         HttpUtil.post('/user/template/list',{page}).then((res:any)=>{
             this.pageMyNum = res.current_page;
             this.pageMyMax = res.last_page;
             callback && callback(res);
+            wx.hideLoading()
         });
     }
     /**获取模板详细信息 */

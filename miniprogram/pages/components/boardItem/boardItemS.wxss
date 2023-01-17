@@ -1,7 +1,7 @@
 /* pages/components/boardItem/boardItem.wxss */
 .b_top_cls {
     width: 648rpx;
-    height: 365rpx;
+    height: 162rpx;
     margin: 0 auto;
     position: relative;
     text-align: center;
@@ -17,7 +17,7 @@
     /* height: -webkit-fill-available;
     height: -moz-available;
     height: fill-available; */
-    height: 365rpx;
+    height: 100%;
     display: block;
 }
 .b_code_cls {
