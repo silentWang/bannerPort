@@ -5,7 +5,9 @@
             <image class="bm_bg_cls" src="{{boardInfo1.pic}}"/>
         </view>
         <block wx:if="{{showSaveBtn}}">
-            <view class="bm_btn" catchtap="clkToSave1">保存到手机</view>
+            <view class="bm_btn" catchtap="clkToSave1">
+                <text class="bm_btn_label">保存到手机</text>
+            </view>
         </block>
     </view>
     <view wx:if="{{boardInfo2 && boardInfo2.pic}}" bindtap="clkToShow2">
@@ -13,7 +15,9 @@
             <image class="bm_bg_cls" src="{{boardInfo2.pic}}"/>
         </view>
         <block wx:if="{{showSaveBtn}}">
-            <view class="bm_btn" catchtap="clkToSave2">保存到手机</view>
+            <view class="bm_btn" catchtap="clkToSave2">
+                <text class="bm_btn_label">保存到手机</text>
+            </view>
         </block>
     </view>
 </view>

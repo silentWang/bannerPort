@@ -29,11 +29,11 @@
     font-size: 36rpx;
     border-radius: 50rpx;
     color: #fff;
-    padding: 30rpx 0 0 15rpx;
     width: 100rpx;
     height: 100rpx;
     background: rgba(0, 0, 0, 0.7);
-    box-sizing: border-box;
+    line-height: 100rpx;
+    text-align: center;
 }
 .boardItem_cls {
     display: block;

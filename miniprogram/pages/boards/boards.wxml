@@ -21,7 +21,9 @@
     <view class="blank_cls">空空如也</view>
   </block>
   <block wx:if="{{!isSeries}}">
-    <view class="back_btn" bindtap="onTapBack">返回</view>
+    <view class="back_btn" bindtap="onTapBack">
+      <text class="back_btn_label">返回</text>
+    </view>
   </block>
   <block wx:if="{{showDetail}}">
     <boardShow tempData="{{boardData}}" bind:hideBoardEvent="hideBoard"></boardShow>

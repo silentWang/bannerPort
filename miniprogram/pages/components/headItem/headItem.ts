@@ -57,6 +57,7 @@ Component({
       this.close()
     },
     inputTextHandler(evt:any){
+      console.log('ccccccccccc',this.data)
       this.setData({orderListNo:evt.detail.value})
     },
     close(){

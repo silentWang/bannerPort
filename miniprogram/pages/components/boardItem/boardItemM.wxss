@@ -18,14 +18,20 @@
     height: 183rpx;
 }
 .bm_btn {
-    height: 50rpx;
+    width: 328rpx;
+    height: 72rpx;
     background-color: #3FC154;
     border-radius: 10rpx;
     text-align: center;
     color: #ffffff;
     font-weight: bold;
-    padding-top: 18rpx;
-    margin-top: 10rpx;
+    line-height: 72rpx;
+    margin-top: 5rpx;
+}
+.bm_btn_label {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
 }
 .text_cls {
     position: absolute;
