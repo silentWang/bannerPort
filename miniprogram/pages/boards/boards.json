@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "模版分类",
   "usingComponents": {
     "headItem":"../components/headItem/headItem",
     "boardItemS":"../components/boardItem/boardItemS",

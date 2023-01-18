@@ -44,7 +44,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+    wx.setNavigationBarTitle({title:this.data.isSeries ? '模版分类' : '模版列表'})
   },
 
   /**
@@ -97,6 +97,7 @@ Page({
   },
   showChildList(data:any){
     let info = data.currentTarget.dataset.seriesitem;
+    wx.setNavigationBarTitle({title:'模版列表'})
     this.setData({
       categoryId:info.id,
       categoryCode:info.code,
@@ -126,6 +127,7 @@ Page({
       isSeries:true,
       isBlank:isblank
     })
+    wx.setNavigationBarTitle({title:'模版分类'})
   },
   hideBoard(){
     this.setData({showDetail:false})
