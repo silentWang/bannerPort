@@ -2,6 +2,6 @@
 <view class="b_top_cls">
     <view class="b_big_cls">
         <image src="{{seriesInfo.pic}}" mode="aspectFit" class="b_bg_cls"/>
-        <text class="b_code_cls">code:{{seriesInfo.code}}</text>
+<!--        <text class="b_code_cls">code:{{seriesInfo.code}}</text>-->
     </view>
 </view>
