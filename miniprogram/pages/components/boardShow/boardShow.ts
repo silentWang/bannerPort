@@ -34,7 +34,7 @@ Component({
     startDIY(){
       let times = dataCenter.userInfo.num;
       if(times <= 0){
-        dataCenter.showPayTip()
+        dataCenter.showPayTip();
         return;
       }
       wx.navigateTo({

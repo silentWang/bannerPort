@@ -3,6 +3,7 @@
     <view class="bs_content_cls">
       <image class="bs_bg_cls" src="{{tempData.pic}}"/>
     </view>
+    <image wx:if="{{isMineType}}" class="watermark_cls" src="../../images/watermark.png"/>
     <block>
       <view class="bs_diybutton_cls">
           <button wx:if="{{!isMineType}}" type="primary" catchtap="startDIY">开始DIY</button>

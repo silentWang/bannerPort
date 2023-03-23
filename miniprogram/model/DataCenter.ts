@@ -1,5 +1,6 @@
 import EventCenter from "./EventCenter";
 import HttpUtil from "./HttpUtil";
+import Utils from "./Utils";
 
 const testMode = false;
 class DataCenter {
@@ -264,11 +265,19 @@ class DataCenter {
 
     public showPayTip(){
         wx.showModal({
-            content:'DIY次数已用完，请点击界面右上角获得次数，若无订单号，可直接购买',
-            confirmText:'购买次数',
+            content:'DIY次数不足',
+            confirmText:'获取次数',
             cancelText:'确定',
             success:(res)=>{
                 if(res.confirm){
+                    if(Utils.checkIsIos()){
+                        wx.showModal({
+                            content:'由于相关规范，IOS功能暂不可用',
+                            confirmText:'关闭',
+                            showCancel:false
+                        });
+                        return 
+                    }
                     HttpUtil.post('/trade/pay').then((res:any)=>{
                         let data = res.wechat_data;
                         let trade_no = res.trade_no;

@@ -12,7 +12,7 @@ Page({
     isLoading:false,
     isBlank:false,
     boardData:{},
-    seriesList:{},
+    seriesList:[] as any[],
     childList:[] as any[],
     categoryId:'',
     categoryCode:''
@@ -88,8 +88,8 @@ Page({
     else{
       dataCenter.getChildList((res:any)=>{
         let obj:any = {isLoading:false}
-        if(!res){
-          obj.seriesList = [...this.data.childList,...res.data]
+        if(res){
+          obj.childList = [...this.data.childList,...res.data]
         }
         this.setData(obj);
       },this.data.categoryId,this.data.categoryCode);
