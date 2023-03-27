@@ -1,0 +1,7 @@
+<!--pages/pay/paypage.wxml-->
+<view class="container">
+    <view class="tip_dlg_cls">
+        <text class="p_title">DIY次数不足</text>
+        <button class="p_button" catchtap="startPay" type="primary">获取次数</button>
+    </view>
+</view>

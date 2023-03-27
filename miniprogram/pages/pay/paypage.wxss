@@ -1,0 +1,28 @@
+/* pages/pay/paypage.wxss */
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #333;
+    position: absolute;
+}
+.p_title {
+    color: #000;
+    font-size: 50rpx;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10vw;
+}
+.tip_dlg_cls {
+    width: 80vw;
+    height: 60vw;
+    background-color: #fff;
+    border-radius: 2vw;
+    box-shadow:2rpx 2rpx 10rpx #333;
+    display: block;
+    margin: 0 auto;
+    margin-top: 38vw;
+    text-align: center;
+}
+.p_button {
+    margin-top: 20vw;
+}

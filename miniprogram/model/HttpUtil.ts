@@ -1,6 +1,7 @@
 export default class HttpUtil {
     static baseUrl = 'https://www.songshumoban01.com.cn/api';
     static diyUrl = "https://h5.songshumoban01.com.cn";
+    // static diyUrl = "http://192.168.31.114:8080";
     
     static get(path:string,params:any = null){
         return new Promise((resolve,reject)=>{

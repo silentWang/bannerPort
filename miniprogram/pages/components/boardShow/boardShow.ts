@@ -1,4 +1,4 @@
-import { dataCenter } from "../../../model/DataCenter";
+// import { dataCenter } from "../../../model/DataCenter";
 import { downloadImage } from "../../../utils/util"
 // pages/components/boardShow/boardShow.ts
 Component({
@@ -32,11 +32,11 @@ Component({
    */
   methods: {
     startDIY(){
-      let times = dataCenter.userInfo.num;
-      if(times <= 0){
-        dataCenter.showPayTip()
-        return;
-      }
+      // let times = dataCenter.userInfo.num;
+      // if(times <= 0){
+      //   dataCenter.showPayTip()
+      //   return;
+      // }
       wx.navigateTo({
         url: `../../pages/diypage/diypage?templateId=${this.data.tempData.id}`,
         complete:function(result){

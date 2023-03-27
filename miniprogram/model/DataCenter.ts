@@ -263,27 +263,18 @@ class DataCenter {
     }
 
     public showPayTip(){
-        wx.showModal({
-            content:'DIY次数已用完，请点击界面右上角获得次数，若无订单号，可直接购买',
-            confirmText:'购买次数',
-            cancelText:'确定',
-            success:(res)=>{
-                if(res.confirm){
-                    HttpUtil.post('/trade/pay').then((res:any)=>{
-                        let data = res.wechat_data;
-                        let trade_no = res.trade_no;
-                        data['success'] = function(rep:any){
-                            console.log('success',rep);
-                            DataCenter.instance.startManyQueryPay(trade_no)
-                        }
-                        data['fail'] = function(rep:any){
-                            console.log('fail',rep);
-                        }
-                        wx.requestPayment(data)
-                    });
-                }
+        HttpUtil.post('/trade/pay').then((res:any)=>{
+            let data = res.wechat_data;
+            let trade_no = res.trade_no;
+            data['success'] = function(rep:any){
+                console.log('success',rep);
+                DataCenter.instance.startManyQueryPay(trade_no)
             }
-        })
+            data['fail'] = function(rep:any){
+                console.log('fail',rep);
+            }
+            wx.requestPayment(data)
+        });
     }
 
     private startManyQueryPay(trade_no:string){
@@ -296,6 +287,10 @@ class DataCenter {
             if(this.queryTimes >= 10){
                 clearInterval(this.intervalID);
                 wx.hideLoading();
+                wx.showModal({
+                    content:'查询订单失败，请重试',
+                    showCancel:false
+                })
             }
         },3000);
     }
@@ -306,6 +301,7 @@ class DataCenter {
                 this.getUserInfo();
                 clearInterval(this.intervalID);
                 wx.hideLoading();
+                wx.navigateBack();
                 this.queryTimes = 0;
             }
         })

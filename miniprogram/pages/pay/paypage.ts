@@ -1,23 +1,20 @@
-import { dataCenter } from "../../model/DataCenter";
-import HttpUtil from "../../model/HttpUtil";
+import { dataCenter } from "../../model/DataCenter"
 
-// pages/diypage/diypage.ts
+// pages/pay/paypage.ts
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    diyUrl:''
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(data:any) {
-    let url = HttpUtil.diyUrl;
-    let path = `templateId=${data.templateId}&token=${dataCenter.access_token}`
-    this.setData({diyUrl:url + '?' + path})
+  onLoad() {
+
   },
 
   /**
@@ -31,8 +28,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-  },
 
+  },
+  startPay(){
+    dataCenter.showPayTip();
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

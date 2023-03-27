@@ -68,12 +68,20 @@
     color: #000000;
     position: relative;
 }
-.h_label_cls {
-    font-size: 42rpx;
+.h_label_cls1 {
+    font-size: 36rpx;
     text-align: center;
     margin: 0 auto;
     position: relative;
     top: 80rpx;
+}
+.h_label_cls2 {
+    font-size: 30rpx;
+    color: #ff0000;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 90rpx;
 }
 .h_input_cls {
     width: 500rpx;
