@@ -6,4 +6,5 @@
       <homeItem tempData="{{item}}" class="homeItem_cls"></homeItem>
     </block>
   </scroll-view>
+  <Privacy/>
 </view>

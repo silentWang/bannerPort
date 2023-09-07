@@ -2,6 +2,7 @@
   "navigationBarTitleText": "松鼠模板",
   "usingComponents": {
     "headItem":"../components/headItem/headItem",
-    "homeItem":"../components/homeItem/homeItem"
+    "homeItem":"../components/homeItem/homeItem",
+    "Privacy": "/pages/components/privacy/privacy"
   }
 }
